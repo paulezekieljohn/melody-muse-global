@@ -7,7 +7,7 @@ export interface Song {
   key?: string;
   tempo?: number;
   genre?: string;
-  language: 'en' | 'es' | 'fr';
+  language: 'en' | 'es' | 'fr' | 'hi' | 'ta' | 'te';
   collections: string[];
   tags: string[];
   difficulty?: 'beginner' | 'intermediate' | 'advanced';
@@ -22,7 +22,7 @@ export interface Collection {
 }
 
 export interface Language {
-  code: 'en' | 'es' | 'fr';
+  code: 'en' | 'es' | 'fr' | 'hi' | 'ta' | 'te';
   name: string;
   flag: string;
 }

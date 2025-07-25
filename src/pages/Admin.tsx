@@ -22,7 +22,7 @@ const songSchema = z.object({
   key: z.string().optional(),
   tempo: z.number().min(1).max(300).optional(),
   genre: z.string().optional(),
-  language: z.enum(['en', 'es', 'fr']),
+  language: z.enum(['en', 'es', 'fr', 'hi', 'ta', 'te']),
   difficulty: z.enum(['beginner', 'intermediate', 'advanced']).optional(),
 });
 
@@ -194,6 +194,9 @@ const Admin = () => {
                             <SelectItem value="en">🇺🇸 English</SelectItem>
                             <SelectItem value="es">🇪🇸 Español</SelectItem>
                             <SelectItem value="fr">🇫🇷 Français</SelectItem>
+                            <SelectItem value="hi">🇮🇳 हिंदी</SelectItem>
+                            <SelectItem value="ta">🇮🇳 தமிழ்</SelectItem>
+                            <SelectItem value="te">🇮🇳 తెలుగు</SelectItem>
                           </SelectContent>
                         </Select>
                         <FormMessage />
