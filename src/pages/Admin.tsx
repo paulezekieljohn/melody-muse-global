@@ -9,10 +9,11 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form';
 import { Badge } from '@/components/ui/badge';
-import { X, Plus, Settings, ArrowLeft } from 'lucide-react';
+import { X, Plus, Settings, ArrowLeft, FileText } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
 import { Link } from 'react-router-dom';
 import { collections } from '@/data/songs';
+import { DocumentScanner } from '@/components/DocumentScanner';
 
 const songSchema = z.object({
   title: z.string().min(1, 'Title is required'),
@@ -32,6 +33,7 @@ const Admin = () => {
   const [selectedCollections, setSelectedCollections] = useState<string[]>([]);
   const [tags, setTags] = useState<string[]>([]);
   const [newTag, setNewTag] = useState('');
+  const [showScanner, setShowScanner] = useState(false);
   const { toast } = useToast();
 
   const form = useForm<SongFormData>({
@@ -86,6 +88,10 @@ const Admin = () => {
     form.reset();
     setSelectedCollections([]);
     setTags([]);
+  };
+
+  const handleTextExtracted = (text: string) => {
+    form.setValue('lyrics', text);
   };
 
   return (
@@ -291,10 +297,21 @@ const Admin = () => {
                   name="lyrics"
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel>Lyrics *</FormLabel>
+                      <div className="flex items-center justify-between">
+                        <FormLabel>Lyrics *</FormLabel>
+                        <Button
+                          type="button"
+                          variant="outline"
+                          size="sm"
+                          onClick={() => setShowScanner(true)}
+                        >
+                          <FileText className="h-4 w-4 mr-2" />
+                          Scan Document
+                        </Button>
+                      </div>
                       <FormControl>
                         <Textarea 
-                          placeholder="Enter song lyrics..."
+                          placeholder="Enter song lyrics or scan from a document..."
                           className="min-h-[120px]"
                           {...field}
                         />
@@ -330,6 +347,14 @@ const Admin = () => {
             </Form>
           </CardContent>
         </Card>
+
+        {/* Document Scanner Modal */}
+        {showScanner && (
+          <DocumentScanner
+            onTextExtracted={handleTextExtracted}
+            onClose={() => setShowScanner(false)}
+          />
+        )}
       </div>
     </div>
   );
