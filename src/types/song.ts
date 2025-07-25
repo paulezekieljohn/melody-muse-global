@@ -1,3 +1,10 @@
+export interface SongLanguageVersion {
+  title: string;
+  artist: string;
+  lyrics: string;
+  chords?: string;
+}
+
 export interface Song {
   id: string;
   title: string;
@@ -7,10 +14,13 @@ export interface Song {
   key?: string;
   tempo?: number;
   genre?: string;
-  language: 'en' | 'es' | 'fr' | 'hi' | 'ta' | 'te';
+  language: LanguageCode;
   collections: string[];
   tags: string[];
   difficulty?: 'beginner' | 'intermediate' | 'advanced';
+  languageVersions?: {
+    [languageCode: string]: SongLanguageVersion;
+  };
 }
 
 export interface Collection {
@@ -21,8 +31,10 @@ export interface Collection {
   color: string;
 }
 
+export type LanguageCode = 'en' | 'es' | 'fr' | 'hi' | 'ta' | 'te';
+
 export interface Language {
-  code: 'en' | 'es' | 'fr' | 'hi' | 'ta' | 'te';
+  code: LanguageCode;
   name: string;
   flag: string;
 }

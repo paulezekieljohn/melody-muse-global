@@ -158,7 +158,27 @@ A    B    E`
     chords: `C    F    C    G
 C    F    G    C
 C    F    C    Am
+F    G    C`,
+    languageVersions: {
+      en: {
+        title: 'I Bow to Thee Mother',
+        artist: 'Bankim Chandra Chattopadhyay',
+        lyrics: `I bow to thee Mother,
+richly-watered, richly-fruited,
+cool with the winds of the south,
+dark with the crops of the harvests,
+The Mother!
+
+Her nights rejoicing in the glory of the moonlight,
+her lands clothed beautifully with her trees in flowering bloom,
+sweet of laughter, sweet of speech,
+The Mother, giver of boons, giver of bliss.`,
+        chords: `C    F    C    G
+C    F    G    C
+C    F    C    Am
 F    G    C`
+      }
+    }
   },
   {
     id: 'raghupati-raghav',
@@ -183,6 +203,25 @@ F    G    C`
     chords: `D    G    D    A
 D    G    A    D
 D    G    D    Bm
+G    A    D`,
+    languageVersions: {
+      en: {
+        title: 'Raghupati Raghav Raja Ram',
+        artist: 'Traditional',
+        lyrics: `Raghupati Raghav Raja Ram
+Patit Pavan Sita Ram
+Sita Ram Sita Ram
+Bhaj Pyare Tu Sita Ram
+
+Ishwar Allah Tero Naam
+Sab Ko Sanmati De Bhagwan
+Sab Ko Sanmati De Bhagwan
+Raghupati Raghav Raja Ram`,
+        chords: `D    G    D    A
+D    G    A    D
+D    G    D    Bm
 G    A    D`
+      }
+    }
   }
 ];

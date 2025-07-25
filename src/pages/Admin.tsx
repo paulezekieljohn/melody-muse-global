@@ -14,6 +14,8 @@ import { useToast } from '@/hooks/use-toast';
 import { Link } from 'react-router-dom';
 import { collections } from '@/data/songs';
 import { DocumentScanner } from '@/components/DocumentScanner';
+import { LanguageVersionEditor } from '@/components/LanguageVersionEditor';
+import { SongLanguageVersion } from '@/types/song';
 
 const songSchema = z.object({
   title: z.string().min(1, 'Title is required'),
@@ -23,7 +25,7 @@ const songSchema = z.object({
   key: z.string().optional(),
   tempo: z.number().min(1).max(300).optional(),
   genre: z.string().optional(),
-  language: z.enum(['en', 'es', 'fr', 'hi', 'ta', 'te']),
+  language: z.enum(['en', 'es', 'fr', 'hi', 'ta', 'te'] as const),
   difficulty: z.enum(['beginner', 'intermediate', 'advanced']).optional(),
 });
 
@@ -34,6 +36,7 @@ const Admin = () => {
   const [tags, setTags] = useState<string[]>([]);
   const [newTag, setNewTag] = useState('');
   const [showScanner, setShowScanner] = useState(false);
+  const [languageVersions, setLanguageVersions] = useState<{ [key: string]: SongLanguageVersion }>({});
   const { toast } = useToast();
 
   const form = useForm<SongFormData>({
@@ -74,6 +77,7 @@ const Admin = () => {
       ...data,
       collections: selectedCollections,
       tags,
+      ...(Object.keys(languageVersions).length > 0 && { languageVersions }),
     };
 
     // In a real app, this would save to a database
@@ -88,6 +92,7 @@ const Admin = () => {
     form.reset();
     setSelectedCollections([]);
     setTags([]);
+    setLanguageVersions({});
   };
 
   const handleTextExtracted = (text: string) => {
@@ -345,6 +350,15 @@ const Admin = () => {
                 </Button>
               </form>
             </Form>
+
+            {/* Language Versions Section */}
+            <div className="mt-8 pt-6 border-t">
+              <LanguageVersionEditor
+                languageVersions={languageVersions}
+                onVersionsChange={setLanguageVersions}
+                excludeLanguages={[form.watch('language')].filter(Boolean)}
+              />
+            </div>
           </CardContent>
         </Card>
 
