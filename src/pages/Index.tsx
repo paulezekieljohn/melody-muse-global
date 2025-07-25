@@ -4,7 +4,9 @@ import { Song } from '@/types/song';
 import { SongCard } from '@/components/SongCard';
 import { SongViewer } from '@/components/SongViewer';  
 import { SearchAndFilter } from '@/components/SearchAndFilter';
-import { Music } from 'lucide-react';
+import { Music, Settings } from 'lucide-react';
+import { Button } from '@/components/ui/button';
+import { Link } from 'react-router-dom';
 
 const Index = () => {
   const [selectedSong, setSelectedSong] = useState<Song | null>(null);
@@ -43,11 +45,17 @@ const Index = () => {
       <div className="container mx-auto px-4 py-8">
         {/* Header */}
         <div className="text-center mb-8">
-          <div className="flex items-center justify-center gap-3 mb-4">
+          <div className="flex items-center justify-center gap-3 mb-4 relative">
             <Music className="h-10 w-10 text-primary" />
             <h1 className="text-4xl font-bold bg-gradient-to-r from-primary to-purple-600 bg-clip-text text-transparent">
               Melody Muse
             </h1>
+            <Link to="/admin" className="absolute right-0">
+              <Button variant="outline" size="sm">
+                <Settings className="h-4 w-4 mr-2" />
+                Admin
+              </Button>
+            </Link>
           </div>
           <p className="text-xl text-muted-foreground">Your personal songbook collection</p>
         </div>
