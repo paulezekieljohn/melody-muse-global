@@ -1,9 +1,10 @@
 import { useState, useMemo } from 'react';
 import { songs } from '@/data/songs';
-import { Song } from '@/types/song';
+import { Song, LanguageCode } from '@/types/song';
 import { SongCard } from '@/components/SongCard';
 import { SongViewer } from '@/components/SongViewer';  
 import { SearchAndFilter } from '@/components/SearchAndFilter';
+import { LanguageSelector } from '@/components/LanguageSelector';
 import { Music, Settings } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Link } from 'react-router-dom';
@@ -14,6 +15,7 @@ const Index = () => {
   const [selectedLanguage, setSelectedLanguage] = useState('all');
   const [selectedCollection, setSelectedCollection] = useState('all');
   const [selectedDifficulty, setSelectedDifficulty] = useState('all');
+  const [primaryLanguage, setPrimaryLanguage] = useState<LanguageCode | 'all' | null>(null);
 
   const filteredSongs = useMemo(() => {
     return songs.filter(song => {
@@ -22,13 +24,14 @@ const Index = () => {
         song.artist.toLowerCase().includes(searchTerm.toLowerCase()) ||
         song.lyrics.toLowerCase().includes(searchTerm.toLowerCase());
       
+      const matchesPrimaryLanguage = primaryLanguage === 'all' || primaryLanguage === null || song.language === primaryLanguage;
       const matchesLanguage = selectedLanguage === 'all' || song.language === selectedLanguage;
       const matchesCollection = selectedCollection === 'all' || song.collections.includes(selectedCollection);
       const matchesDifficulty = selectedDifficulty === 'all' || song.difficulty === selectedDifficulty;
 
-      return matchesSearch && matchesLanguage && matchesCollection && matchesDifficulty;
+      return matchesSearch && matchesPrimaryLanguage && matchesLanguage && matchesCollection && matchesDifficulty;
     });
-  }, [searchTerm, selectedLanguage, selectedCollection, selectedDifficulty]);
+  }, [searchTerm, primaryLanguage, selectedLanguage, selectedCollection, selectedDifficulty]);
 
   const hasActiveFilters = searchTerm !== '' || selectedLanguage !== 'all' || 
                           selectedCollection !== 'all' || selectedDifficulty !== 'all';
@@ -40,12 +43,35 @@ const Index = () => {
     setSelectedDifficulty('all');
   };
 
+  const handleLanguageSelect = (language: LanguageCode | 'all') => {
+    setPrimaryLanguage(language);
+    setSelectedLanguage('all'); // Reset secondary filter
+  };
+
+  // Show language selector if no primary language is selected
+  if (primaryLanguage === null) {
+    return (
+      <LanguageSelector
+        onLanguageSelect={handleLanguageSelect}
+      />
+    );
+  }
+
   return (
     <div className="min-h-screen bg-gradient-to-br from-background via-background to-muted/20">
       <div className="container mx-auto px-4 py-8">
         {/* Header */}
         <div className="text-center mb-8">
           <div className="flex items-center justify-center gap-3 mb-4 relative">
+            <Button 
+              variant="ghost" 
+              size="sm" 
+              onClick={() => setPrimaryLanguage(null)}
+              className="absolute left-0"
+            >
+              <Music className="h-4 w-4 mr-2" />
+              Change Language
+            </Button>
             <Music className="h-10 w-10 text-primary" />
             <h1 className="text-4xl font-bold bg-gradient-to-r from-primary to-purple-600 bg-clip-text text-transparent">
               Melody Muse

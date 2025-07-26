@@ -31,7 +31,7 @@ export interface Collection {
   color: string;
 }
 
-export type LanguageCode = 'en' | 'es' | 'fr' | 'hi' | 'ta' | 'te';
+export type LanguageCode = 'en' | 'es' | 'fr' | 'hi' | 'ta' | 'te' | 'mr' | 'kn';
 
 export interface Language {
   code: LanguageCode;
