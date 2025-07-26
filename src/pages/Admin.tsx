@@ -357,6 +357,12 @@ const Admin = () => {
                 languageVersions={languageVersions}
                 onVersionsChange={setLanguageVersions}
                 excludeLanguages={[form.watch('language')].filter(Boolean)}
+                currentSong={{
+                  title: form.watch('title'),
+                  artist: form.watch('artist'),
+                  lyrics: form.watch('lyrics'),
+                  language: form.watch('language')
+                }}
               />
             </div>
           </CardContent>

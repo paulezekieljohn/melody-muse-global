@@ -6,7 +6,7 @@ import { Textarea } from '@/components/ui/textarea';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Badge } from '@/components/ui/badge';
 import { Separator } from '@/components/ui/separator';
-import { X, Plus, Languages, FileText } from 'lucide-react';
+import { X, Plus, Languages, FileText, Globe, Loader2 } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
 import { languages } from '@/data/songs';
 import { SongLanguageVersion, LanguageCode } from '@/types/song';
@@ -16,12 +16,19 @@ interface LanguageVersionEditorProps {
   languageVersions: { [key: string]: SongLanguageVersion };
   onVersionsChange: (versions: { [key: string]: SongLanguageVersion }) => void;
   excludeLanguages?: LanguageCode[];
+  currentSong?: {
+    title: string;
+    artist: string;
+    lyrics: string;
+    language: LanguageCode;
+  };
 }
 
 export const LanguageVersionEditor = ({ 
   languageVersions, 
   onVersionsChange, 
-  excludeLanguages = [] 
+  excludeLanguages = [],
+  currentSong
 }: LanguageVersionEditorProps) => {
   const [selectedLanguage, setSelectedLanguage] = useState<LanguageCode | ''>('');
   const [editingVersion, setEditingVersion] = useState<SongLanguageVersion>({
@@ -31,6 +38,8 @@ export const LanguageVersionEditor = ({
     chords: '',
   });
   const [showScanner, setShowScanner] = useState(false);
+  const [isTranslating, setIsTranslating] = useState(false);
+  const [selectedTranslateLanguages, setSelectedTranslateLanguages] = useState<LanguageCode[]>([]);
   const { toast } = useToast();
 
   const availableLanguages = languages.filter(
@@ -80,12 +89,134 @@ export const LanguageVersionEditor = ({
     });
   };
 
+  const translateText = async (text: string, targetLang: LanguageCode): Promise<string> => {
+    // Simple translation API call using Google Translate API
+    // For demo purposes, this is a placeholder implementation
+    try {
+      const response = await fetch(`https://api.mymemory.translated.net/get?q=${encodeURIComponent(text)}&langpair=en|${targetLang}`);
+      const data = await response.json();
+      return data.responseData?.translatedText || text;
+    } catch (error) {
+      console.error('Translation error:', error);
+      return text; // Return original text if translation fails
+    }
+  };
+
+  const handleBulkTranslate = async () => {
+    if (!currentSong || selectedTranslateLanguages.length === 0) {
+      toast({
+        title: "Missing information",
+        description: "Please select languages to translate to.",
+        variant: "destructive",
+      });
+      return;
+    }
+
+    setIsTranslating(true);
+    const newVersions = { ...languageVersions };
+
+    try {
+      for (const targetLang of selectedTranslateLanguages) {
+        if (newVersions[targetLang]) continue; // Skip if version already exists
+
+        const translatedTitle = await translateText(currentSong.title, targetLang);
+        const translatedLyrics = await translateText(currentSong.lyrics, targetLang);
+        
+        newVersions[targetLang] = {
+          title: translatedTitle,
+          artist: currentSong.artist,
+          lyrics: translatedLyrics,
+          chords: '', // Chords typically don't need translation
+        };
+      }
+
+      onVersionsChange(newVersions);
+      setSelectedTranslateLanguages([]);
+
+      toast({
+        title: "Translation completed",
+        description: `Translated song to ${selectedTranslateLanguages.length} language(s).`,
+      });
+    } catch (error) {
+      toast({
+        title: "Translation failed",
+        description: "There was an error translating the song. Please try again.",
+        variant: "destructive",
+      });
+    } finally {
+      setIsTranslating(false);
+    }
+  };
+
   const handleTextExtracted = (text: string) => {
     setEditingVersion(prev => ({ ...prev, lyrics: text }));
   };
 
+  const availableTranslateLanguages = languages.filter(
+    lang => !excludeLanguages.includes(lang.code) && 
+             !languageVersions[lang.code] && 
+             lang.code !== currentSong?.language
+  );
+
   return (
     <div className="space-y-4">
+      {/* Bulk Translation Section */}
+      {currentSong && availableTranslateLanguages.length > 0 && (
+        <Card>
+          <CardHeader>
+            <CardTitle className="text-lg flex items-center gap-2">
+              <Globe className="h-4 w-4" />
+              Auto Translate
+            </CardTitle>
+          </CardHeader>
+          <CardContent className="space-y-4">
+            <div>
+              <label className="text-sm font-medium mb-2 block">
+                Select languages to translate to:
+              </label>
+              <div className="flex flex-wrap gap-2">
+                {availableTranslateLanguages.map((lang) => (
+                  <Button
+                    key={lang.code}
+                    variant={selectedTranslateLanguages.includes(lang.code) ? "default" : "outline"}
+                    size="sm"
+                    onClick={() => {
+                      setSelectedTranslateLanguages(prev =>
+                        prev.includes(lang.code)
+                          ? prev.filter(code => code !== lang.code)
+                          : [...prev, lang.code]
+                      );
+                    }}
+                  >
+                    {lang.flag} {lang.name}
+                  </Button>
+                ))}
+              </div>
+            </div>
+            
+            {selectedTranslateLanguages.length > 0 && (
+              <Button 
+                onClick={handleBulkTranslate} 
+                disabled={isTranslating}
+                className="w-full"
+              >
+                {isTranslating ? (
+                  <>
+                    <Loader2 className="h-4 w-4 mr-2 animate-spin" />
+                    Translating...
+                  </>
+                ) : (
+                  <>
+                    <Globe className="h-4 w-4 mr-2" />
+                    Translate to {selectedTranslateLanguages.length} Language(s)
+                  </>
+                )}
+              </Button>
+            )}
+          </CardContent>
+        </Card>
+      )}
+
       {/* Existing Language Versions */}
       {Object.keys(languageVersions).length > 0 && (
         <div>
