@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { z } from 'zod';
@@ -9,7 +9,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form';
 import { Badge } from '@/components/ui/badge';
-import { X, Plus, Settings, ArrowLeft, FileText } from 'lucide-react';
+import { X, Plus, Settings, ArrowLeft, FileText, Lock } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
 import { Link } from 'react-router-dom';
 import { collections } from '@/data/songs';
@@ -25,19 +25,94 @@ const songSchema = z.object({
   key: z.string().optional(),
   tempo: z.number().min(1).max(300).optional(),
   genre: z.string().optional(),
-  language: z.enum(['en', 'es', 'fr', 'hi', 'ta', 'te'] as const),
+  language: z.enum(['en', 'es', 'fr', 'hi', 'ta', 'te', 'mr', 'kn'] as const),
   difficulty: z.enum(['beginner', 'intermediate', 'advanced']).optional(),
 });
 
 type SongFormData = z.infer<typeof songSchema>;
 
 const Admin = () => {
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const [password, setPassword] = useState('');
+  const [authError, setAuthError] = useState('');
+  const ADMIN_PASSWORD = 'admin123'; // Change this to your desired password
   const [selectedCollections, setSelectedCollections] = useState<string[]>([]);
   const [tags, setTags] = useState<string[]>([]);
   const [newTag, setNewTag] = useState('');
   const [showScanner, setShowScanner] = useState(false);
   const [languageVersions, setLanguageVersions] = useState<{ [key: string]: SongLanguageVersion }>({});
   const { toast } = useToast();
+
+  const handlePasswordSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (password === ADMIN_PASSWORD) {
+      setIsAuthenticated(true);
+      setAuthError('');
+      localStorage.setItem('adminAuthenticated', 'true');
+    } else {
+      setAuthError('Invalid password');
+      setPassword('');
+    }
+  };
+
+  useEffect(() => {
+    // Check if user was previously authenticated
+    const wasAuthenticated = localStorage.getItem('adminAuthenticated');
+    if (wasAuthenticated === 'true') {
+      setIsAuthenticated(true);
+    }
+  }, []);
+
+  const handleLogout = () => {
+    setIsAuthenticated(false);
+    localStorage.removeItem('adminAuthenticated');
+    setPassword('');
+  };
+
+  // Show password form if not authenticated
+  if (!isAuthenticated) {
+    return (
+      <div className="min-h-screen bg-gradient-to-br from-background via-background to-muted/20 flex items-center justify-center">
+        <Card className="w-full max-w-md">
+          <CardHeader className="text-center">
+            <div className="flex items-center justify-center gap-2 mb-2">
+              <Lock className="h-8 w-8 text-primary" />
+              <CardTitle className="text-2xl">Admin Access</CardTitle>
+            </div>
+            <p className="text-muted-foreground">Enter password to access admin panel</p>
+          </CardHeader>
+          <CardContent>
+            <form onSubmit={handlePasswordSubmit} className="space-y-4">
+              <div>
+                <Input
+                  type="password"
+                  placeholder="Enter admin password"
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
+                  className={authError ? 'border-destructive' : ''}
+                />
+                {authError && (
+                  <p className="text-destructive text-sm mt-1">{authError}</p>
+                )}
+              </div>
+              <Button type="submit" className="w-full">
+                <Lock className="h-4 w-4 mr-2" />
+                Access Admin Panel
+              </Button>
+              <div className="text-center">
+                <Link to="/">
+                  <Button variant="ghost" size="sm">
+                    <ArrowLeft className="h-4 w-4 mr-2" />
+                    Back to Songs
+                  </Button>
+                </Link>
+              </div>
+            </form>
+          </CardContent>
+        </Card>
+      </div>
+    );
+  }
 
   const form = useForm<SongFormData>({
     resolver: zodResolver(songSchema),
@@ -103,17 +178,24 @@ const Admin = () => {
     <div className="min-h-screen bg-gradient-to-br from-background via-background to-muted/20">
       <div className="container mx-auto px-4 py-8 max-w-4xl">
         {/* Header */}
-        <div className="flex items-center gap-4 mb-8">
-          <Link to="/">
-            <Button variant="outline" size="sm">
-              <ArrowLeft className="h-4 w-4 mr-2" />
-              Back to Songs
+        <div className="text-center mb-8">
+          <div className="flex items-center justify-center gap-3 mb-4 relative">
+            <Link to="/" className="absolute left-0">
+              <Button variant="outline" size="sm">
+                <ArrowLeft className="h-4 w-4 mr-2" />
+                Back to Songs
+              </Button>
+            </Link>
+            <Settings className="h-10 w-10 text-primary" />
+            <h1 className="text-4xl font-bold bg-gradient-to-r from-primary to-purple-600 bg-clip-text text-transparent">
+              Admin Panel
+            </h1>
+            <Button variant="outline" size="sm" onClick={handleLogout} className="absolute right-0">
+              <Lock className="h-4 w-4 mr-2" />
+              Logout
             </Button>
-          </Link>
-          <div className="flex items-center gap-3">
-            <Settings className="h-8 w-8 text-primary" />
-            <h1 className="text-3xl font-bold">Admin Panel</h1>
           </div>
+          <p className="text-xl text-muted-foreground">Add and manage your song collection</p>
         </div>
 
         <Card>
@@ -208,6 +290,8 @@ const Admin = () => {
                             <SelectItem value="hi">🇮🇳 हिंदी</SelectItem>
                             <SelectItem value="ta">🇮🇳 தமிழ்</SelectItem>
                             <SelectItem value="te">🇮🇳 తెలుగు</SelectItem>
+                            <SelectItem value="mr">🇮🇳 मराठी</SelectItem>
+                            <SelectItem value="kn">🇮🇳 ಕನ್ನಡ</SelectItem>
                           </SelectContent>
                         </Select>
                         <FormMessage />
