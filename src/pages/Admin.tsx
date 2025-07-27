@@ -180,23 +180,25 @@ const Admin = () => {
       <div className="container mx-auto px-4 py-8 max-w-4xl">
         {/* Header */}
         <div className="text-center mb-8">
-          <div className="flex items-center justify-center gap-3 mb-4 relative">
-            <Link to="/" className="absolute left-0">
+          <div className="flex flex-col sm:flex-row items-center justify-center gap-3 mb-4 relative">
+            <Link to="/" className="sm:absolute sm:left-0 order-first sm:order-none">
               <Button variant="outline" size="sm">
                 <ArrowLeft className="h-4 w-4 mr-2" />
                 Back to Songs
               </Button>
             </Link>
-            <Settings className="h-10 w-10 text-primary" />
-            <h1 className="text-4xl font-bold bg-gradient-to-r from-primary to-purple-600 bg-clip-text text-transparent">
-              Admin Panel
-            </h1>
-            <Button variant="outline" size="sm" onClick={handleLogout} className="absolute right-0">
+            <div className="flex items-center gap-3">
+              <Settings className="h-8 sm:h-10 w-8 sm:w-10 text-primary" />
+              <h1 className="text-2xl sm:text-4xl font-bold bg-gradient-to-r from-primary to-purple-600 bg-clip-text text-transparent">
+                Admin Panel
+              </h1>
+            </div>
+            <Button variant="outline" size="sm" onClick={handleLogout} className="sm:absolute sm:right-0 order-last sm:order-none">
               <Lock className="h-4 w-4 mr-2" />
               Logout
             </Button>
           </div>
-          <p className="text-xl text-muted-foreground">Add and manage your song collection</p>
+          <p className="text-lg sm:text-xl text-muted-foreground">Add and manage your song collection</p>
         </div>
 
         <Card>

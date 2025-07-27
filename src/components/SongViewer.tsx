@@ -50,7 +50,7 @@ export const SongViewer = ({ song, open, onClose }: SongViewerProps) => {
 
   return (
     <Dialog open={open} onOpenChange={onClose}>
-      <DialogContent className="max-w-4xl max-h-[90vh]">
+      <DialogContent className="max-w-4xl max-h-[90vh] w-[95vw] sm:w-full">
         <DialogHeader>
           <DialogTitle className="flex items-center gap-2 text-2xl">
             <Music className="h-6 w-6 text-primary" />
@@ -63,10 +63,12 @@ export const SongViewer = ({ song, open, onClose }: SongViewerProps) => {
           <div className="space-y-6 p-1">
             {/* Language Selector */}
             {availableLanguages.length > 1 && (
-              <div className="flex items-center gap-2 p-4 bg-muted/50 rounded-lg">
-                <Languages className="h-4 w-4 text-muted-foreground" />
-                <span className="text-sm font-medium">Language:</span>
-                <div className="flex gap-2">
+              <div className="flex flex-col sm:flex-row items-start sm:items-center gap-2 p-4 bg-muted/50 rounded-lg">
+                <div className="flex items-center gap-2">
+                  <Languages className="h-4 w-4 text-muted-foreground" />
+                  <span className="text-sm font-medium">Language:</span>
+                </div>
+                <div className="flex flex-wrap gap-2">
                   {availableLanguages.map(langCode => {
                     const language = languages.find(l => l.code === langCode);
                     return (
@@ -85,7 +87,7 @@ export const SongViewer = ({ song, open, onClose }: SongViewerProps) => {
             )}
 
             {/* Song Details */}
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
               {song.key && (
                 <div className="flex items-center gap-2 text-sm">
                   <Key className="h-4 w-4 text-muted-foreground" />
