@@ -43,6 +43,20 @@ const Admin = () => {
   const [languageVersions, setLanguageVersions] = useState<{ [key: string]: SongLanguageVersion }>({});
   const { toast } = useToast();
 
+  // Move useForm to top to avoid hooks order issues
+  const form = useForm<SongFormData>({
+    resolver: zodResolver(songSchema),
+    defaultValues: {
+      title: '',
+      artist: '',
+      lyrics: '',
+      chords: '',
+      key: '',
+      genre: '',
+      language: 'en',
+    },
+  });
+
   const handlePasswordSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     if (password === ADMIN_PASSWORD) {
@@ -113,19 +127,6 @@ const Admin = () => {
       </div>
     );
   }
-
-  const form = useForm<SongFormData>({
-    resolver: zodResolver(songSchema),
-    defaultValues: {
-      title: '',
-      artist: '',
-      lyrics: '',
-      chords: '',
-      key: '',
-      genre: '',
-      language: 'en',
-    },
-  });
 
   const addTag = () => {
     if (newTag.trim() && !tags.includes(newTag.trim())) {
