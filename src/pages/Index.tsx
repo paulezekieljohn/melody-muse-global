@@ -1,5 +1,5 @@
-import { useState, useMemo } from 'react';
-import { songs } from '@/data/songs';
+import { useState, useMemo, useEffect } from 'react';
+import { supabase } from '@/integrations/supabase/client';
 import { Song, LanguageCode } from '@/types/song';
 import { SongCard } from '@/components/SongCard';
 import { SongViewer } from '@/components/SongViewer';  
@@ -16,6 +16,45 @@ const Index = () => {
   const [selectedCollection, setSelectedCollection] = useState('all');
   const [selectedDifficulty, setSelectedDifficulty] = useState('all');
   const [primaryLanguage, setPrimaryLanguage] = useState<LanguageCode | 'all' | null>(null);
+  const [songs, setSongs] = useState<Song[]>([]);
+  const [loading, setLoading] = useState(true);
+
+  // Load songs from database
+  useEffect(() => {
+    const loadSongs = async () => {
+      const { data, error } = await supabase
+        .from('songs')
+        .select('*')
+        .order('created_at', { ascending: false });
+
+      if (error) {
+        console.error('Error loading songs:', error);
+      } else {
+        // Transform database data to match Song type
+        const transformedSongs: Song[] = data.map(song => ({
+          id: song.id,
+          title: song.title,
+          artist: song.artist,
+          language: song.language as LanguageCode,
+          genre: song.genre || undefined,
+          key: song.key || undefined,
+          tempo: song.tempo || undefined,
+          difficulty: song.difficulty as Song['difficulty'] || undefined,
+          collections: song.collections || [],
+          tags: song.tags || [],
+          lyrics: song.lyrics || '',
+          chords: song.chords || '',
+          languageVersions: song.language_versions && typeof song.language_versions === 'string'
+            ? JSON.parse(song.language_versions)
+            : undefined,
+        }));
+        setSongs(transformedSongs);
+      }
+      setLoading(false);
+    };
+
+    loadSongs();
+  }, []);
 
   const filteredSongs = useMemo(() => {
     return songs.filter(song => {
@@ -107,28 +146,36 @@ const Index = () => {
         {/* Results Info */}
         <div className="mb-6">
           <p className="text-muted-foreground">
-            Showing {filteredSongs.length} of {songs.length} songs
+            {loading ? 'Loading songs...' : `Showing ${filteredSongs.length} of ${songs.length} songs`}
           </p>
         </div>
 
         {/* Song Grid */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 sm:gap-6">
-          {filteredSongs.map(song => (
-            <SongCard
-              key={song.id}
-              song={song}
-              onClick={() => setSelectedSong(song)}
-            />
-          ))}
-        </div>
-
-        {/* No Results */}
-        {filteredSongs.length === 0 && (
+        {loading ? (
           <div className="text-center py-12">
-            <Music className="h-16 w-16 text-muted-foreground mx-auto mb-4" />
-            <p className="text-xl text-muted-foreground mb-2">No songs found</p>
-            <p className="text-muted-foreground">Try adjusting your search or filters</p>
+            <p className="text-muted-foreground">Loading songs...</p>
           </div>
+        ) : (
+          <>
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 sm:gap-6">
+              {filteredSongs.map(song => (
+                <SongCard
+                  key={song.id}
+                  song={song}
+                  onClick={() => setSelectedSong(song)}
+                />
+              ))}
+            </div>
+
+            {/* No Results */}
+            {filteredSongs.length === 0 && (
+              <div className="text-center py-12">
+                <Music className="h-16 w-16 text-muted-foreground mx-auto mb-4" />
+                <p className="text-xl text-muted-foreground mb-2">No songs found</p>
+                <p className="text-muted-foreground">Try adjusting your search or filters</p>
+              </div>
+            )}
+          </>
         )}
 
         {/* Song Viewer Modal */}

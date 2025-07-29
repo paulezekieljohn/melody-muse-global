@@ -16,6 +16,7 @@ import { collections } from '@/data/songs';
 import { DocumentScanner } from '@/components/DocumentScanner';
 import { LanguageVersionEditor } from '@/components/LanguageVersionEditor';
 import { SongLanguageVersion } from '@/types/song';
+import { supabase } from '@/integrations/supabase/client';
 
 const songSchema = z.object({
   title: z.string().min(1, 'Title is required'),
@@ -147,28 +148,55 @@ const Admin = () => {
     );
   };
 
-  const onSubmit = (data: SongFormData) => {
-    const newSong = {
-      id: `${data.title.toLowerCase().replace(/\s+/g, '-')}-${Date.now()}`,
-      ...data,
-      collections: selectedCollections,
-      tags,
-      ...(Object.keys(languageVersions).length > 0 && { languageVersions }),
-    };
+  const onSubmit = async (data: SongFormData) => {
+    try {
+      const { error } = await supabase
+        .from('songs')
+        .insert([
+          {
+            title: data.title,
+            artist: data.artist,
+            language: data.language,
+            genre: data.genre || null,
+            key: data.key || null,
+            tempo: data.tempo || null,
+            difficulty: data.difficulty || null,
+            collections: selectedCollections,
+            tags,
+            lyrics: data.lyrics || '',
+            chords: data.chords || '',
+            language_versions: Object.keys(languageVersions).length > 0 ? JSON.stringify(languageVersions) : null,
+          }
+        ]);
 
-    // In a real app, this would save to a database
-    console.log('New song:', newSong);
-    
-    toast({
-      title: "Song Added",
-      description: `"${data.title}" has been added to the songbook.`,
-    });
+      if (error) {
+        toast({
+          title: "Error",
+          description: "Failed to add song. Please try again.",
+          variant: "destructive",
+        });
+        console.error('Error adding song:', error);
+        return;
+      }
 
-    // Reset form
-    form.reset();
-    setSelectedCollections([]);
-    setTags([]);
-    setLanguageVersions({});
+      toast({
+        title: "Song Added",
+        description: `"${data.title}" has been added to the songbook.`,
+      });
+
+      // Reset form
+      form.reset();
+      setSelectedCollections([]);
+      setTags([]);
+      setLanguageVersions({});
+    } catch (error) {
+      console.error('Error adding song:', error);
+      toast({
+        title: "Error",
+        description: "Failed to add song. Please try again.",
+        variant: "destructive",
+      });
+    }
   };
 
   const handleTextExtracted = (text: string) => {
