@@ -9,7 +9,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form';
 import { Badge } from '@/components/ui/badge';
-import { X, Plus, Settings, ArrowLeft, FileText, Lock } from 'lucide-react';
+import { X, Plus, Settings, ArrowLeft, FileText, Lock, Trash2 } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
 import { Link } from 'react-router-dom';
 import { collections } from '@/data/songs';
@@ -42,6 +42,8 @@ const Admin = () => {
   const [newTag, setNewTag] = useState('');
   const [showScanner, setShowScanner] = useState(false);
   const [languageVersions, setLanguageVersions] = useState<{ [key: string]: SongLanguageVersion }>({});
+  const [existingSongs, setExistingSongs] = useState<any[]>([]);
+  const [loadingSongs, setLoadingSongs] = useState(false);
   const { toast } = useToast();
 
   // Move useForm to top to avoid hooks order issues
@@ -77,6 +79,73 @@ const Admin = () => {
       setIsAuthenticated(true);
     }
   }, []);
+
+  useEffect(() => {
+    if (isAuthenticated) {
+      loadExistingSongs();
+    }
+  }, [isAuthenticated]);
+
+  const loadExistingSongs = async () => {
+    setLoadingSongs(true);
+    try {
+      const { data, error } = await supabase
+        .from('songs')
+        .select('*')
+        .order('created_at', { ascending: false });
+
+      if (error) {
+        console.error('Error loading songs:', error);
+        toast({
+          title: "Error",
+          description: "Failed to load existing songs.",
+          variant: "destructive",
+        });
+      } else {
+        setExistingSongs(data || []);
+      }
+    } catch (error) {
+      console.error('Error loading songs:', error);
+    } finally {
+      setLoadingSongs(false);
+    }
+  };
+
+  const deleteSong = async (songId: string, title: string) => {
+    if (!confirm(`Are you sure you want to delete "${title}"? This action cannot be undone.`)) {
+      return;
+    }
+
+    try {
+      const { error } = await supabase
+        .from('songs')
+        .delete()
+        .eq('id', songId);
+
+      if (error) {
+        toast({
+          title: "Error",
+          description: "Failed to delete song. Please try again.",
+          variant: "destructive",
+        });
+        console.error('Error deleting song:', error);
+      } else {
+        toast({
+          title: "Song Deleted",
+          description: `"${title}" has been deleted from the songbook.`,
+        });
+        // Reload the songs list
+        loadExistingSongs();
+      }
+    } catch (error) {
+      console.error('Error deleting song:', error);
+      toast({
+        title: "Error",
+        description: "Failed to delete song. Please try again.",
+        variant: "destructive",
+      });
+    }
+  };
 
   const handleLogout = () => {
     setIsAuthenticated(false);
@@ -188,6 +257,8 @@ const Admin = () => {
       setSelectedCollections([]);
       setTags([]);
       setLanguageVersions({});
+      // Reload songs to show the new one
+      loadExistingSongs();
     } catch (error) {
       console.error('Error adding song:', error);
       toast({
@@ -479,6 +550,59 @@ const Admin = () => {
                 }}
               />
             </div>
+          </CardContent>
+        </Card>
+
+        {/* Existing Songs Management */}
+        <Card className="mt-8">
+          <CardHeader>
+            <CardTitle className="flex items-center gap-2">
+              <FileText className="h-5 w-5" />
+              Manage Existing Songs ({existingSongs.length})
+            </CardTitle>
+          </CardHeader>
+          <CardContent>
+            {loadingSongs ? (
+              <div className="text-center py-8">
+                <p className="text-muted-foreground">Loading songs...</p>
+              </div>
+            ) : existingSongs.length === 0 ? (
+              <div className="text-center py-8">
+                <p className="text-muted-foreground">No songs added yet. Add your first song above!</p>
+              </div>
+            ) : (
+              <div className="space-y-4">
+                {existingSongs.map((song) => (
+                  <div key={song.id} className="flex items-center justify-between p-4 border rounded-lg">
+                    <div className="flex-1">
+                      <h3 className="font-semibold">{song.title}</h3>
+                      <p className="text-sm text-muted-foreground">
+                        by {song.artist} • {song.language} • {song.genre || 'No genre'}
+                      </p>
+                      <div className="flex flex-wrap gap-1 mt-2">
+                        {song.collections?.map((collection: string) => (
+                          <Badge key={collection} variant="outline" className="text-xs">
+                            {collections.find(c => c.id === collection)?.name || collection}
+                          </Badge>
+                        ))}
+                        {song.tags?.map((tag: string) => (
+                          <Badge key={tag} variant="secondary" className="text-xs">
+                            {tag}
+                          </Badge>
+                        ))}
+                      </div>
+                    </div>
+                    <Button
+                      variant="destructive"
+                      size="sm"
+                      onClick={() => deleteSong(song.id, song.title)}
+                    >
+                      <Trash2 className="h-4 w-4" />
+                    </Button>
+                  </div>
+                ))}
+              </div>
+            )}
           </CardContent>
         </Card>
 
