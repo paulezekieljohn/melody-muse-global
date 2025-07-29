@@ -150,24 +150,23 @@ const Admin = () => {
 
   const onSubmit = async (data: SongFormData) => {
     try {
-      const { error } = await supabase
+      const { data: insertData, error } = await supabase
         .from('songs')
-        .insert([
-          {
-            title: data.title,
-            artist: data.artist,
-            language: data.language,
-            genre: data.genre || null,
-            key: data.key || null,
-            tempo: data.tempo || null,
-            difficulty: data.difficulty || null,
-            collections: selectedCollections,
-            tags,
-            lyrics: data.lyrics || '',
-            chords: data.chords || '',
-            language_versions: Object.keys(languageVersions).length > 0 ? JSON.stringify(languageVersions) : null,
-          }
-        ]);
+        .insert({
+          title: data.title,
+          artist: data.artist,
+          language: data.language,
+          genre: data.genre || null,
+          key: data.key || null,
+          tempo: data.tempo || null,
+          difficulty: data.difficulty || null,
+          collections: selectedCollections,
+          tags,
+          lyrics: data.lyrics || '',
+          chords: data.chords || '',
+          language_versions: Object.keys(languageVersions).length > 0 ? languageVersions as any : null,
+        })
+        .select();
 
       if (error) {
         toast({
