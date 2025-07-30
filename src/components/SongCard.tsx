@@ -11,12 +11,12 @@ interface SongCardProps {
 export const SongCard = ({ song, onClick }: SongCardProps) => {
   return (
     <Card 
-      className="cursor-pointer hover:shadow-lg transition-all duration-200 border-2 hover:border-primary/20"
+      className="cursor-pointer card-music hover-lift glow-effect transition-all duration-300 border-2"
       onClick={onClick}
     >
       <CardHeader className="pb-3">
         <CardTitle className="text-lg font-bold text-foreground flex items-center gap-2">
-          <Music className="h-5 w-5 text-primary" />
+          <Music className="h-5 w-5 text-primary music-pulse" />
           {song.title}
         </CardTitle>
         <p className="text-muted-foreground font-medium">{song.artist}</p>
