@@ -42,32 +42,46 @@ export const LanguageSelector = ({
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 sm:gap-6 max-w-6xl mx-auto px-2 sm:px-0">
           {/* All Languages Option */}
           <Card 
-            className="cursor-pointer hover:shadow-lg transition-all duration-300 hover:scale-105 border-2 hover:border-primary/50"
+            className="cursor-pointer card-gradient hover:shadow-glow transition-all duration-300 hover:scale-105 hover-lift border-0 overflow-hidden group"
             onClick={() => onLanguageSelect('all')}
           >
-            <CardContent className="p-6 text-center">
-              <div className="text-4xl mb-3">🌍</div>
-              <h3 className="text-xl font-semibold mb-2">All Languages</h3>
-              <p className="text-muted-foreground text-sm">View songs in all languages</p>
+            <CardContent className="p-6 text-center relative">
+              <div className="text-5xl mb-4 filter drop-shadow-lg group-hover:scale-110 transition-transform duration-300">🌍</div>
+              <h3 className="text-xl font-bold mb-2 text-white">All Languages</h3>
+              <p className="text-white/80 text-sm">View songs in all languages</p>
+              <div className="absolute inset-0 bg-gradient-to-br from-transparent via-white/5 to-white/10 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
             </CardContent>
           </Card>
 
           {/* Individual Language Cards */}
-          {languages.map((language) => (
-            <Card 
-              key={language.code}
-              className="cursor-pointer hover:shadow-lg transition-all duration-300 hover:scale-105 border-2 hover:border-primary/50"
-              onClick={() => onLanguageSelect(language.code)}
-            >
-              <CardContent className="p-6 text-center">
-                <div className="text-4xl mb-3">{language.flag}</div>
-                <h3 className="text-xl font-semibold mb-2">{language.name}</h3>
-                <Badge variant="outline" className="text-xs">
-                  {language.code.toUpperCase()}
-                </Badge>
-              </CardContent>
-            </Card>
-          ))}
+          {languages.map((language, index) => {
+            const gradients = [
+              'bg-gradient-to-br from-violet-500/20 via-purple-500/20 to-pink-500/20',
+              'bg-gradient-to-br from-blue-500/20 via-cyan-500/20 to-teal-500/20',
+              'bg-gradient-to-br from-emerald-500/20 via-green-500/20 to-lime-500/20',
+              'bg-gradient-to-br from-orange-500/20 via-red-500/20 to-pink-500/20',
+              'bg-gradient-to-br from-indigo-500/20 via-purple-500/20 to-pink-500/20',
+              'bg-gradient-to-br from-cyan-500/20 via-blue-500/20 to-indigo-500/20'
+            ];
+            const gradientClass = gradients[index % gradients.length];
+            
+            return (
+              <Card 
+                key={language.code}
+                className={`cursor-pointer card-music hover:shadow-glow transition-all duration-300 hover:scale-105 hover-lift border-0 overflow-hidden group ${gradientClass}`}
+                onClick={() => onLanguageSelect(language.code)}
+              >
+                <CardContent className="p-6 text-center relative">
+                  <div className="text-5xl mb-4 filter drop-shadow-lg group-hover:scale-110 transition-transform duration-300">{language.flag}</div>
+                  <h3 className="text-xl font-bold mb-2 text-white">{language.name}</h3>
+                  <Badge variant="secondary" className="text-xs bg-white/20 text-white border-white/30 hover:bg-white/30">
+                    {language.code.toUpperCase()}
+                  </Badge>
+                  <div className="absolute inset-0 bg-gradient-to-br from-transparent via-white/5 to-white/10 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                </CardContent>
+              </Card>
+            );
+          })}
         </div>
       </div>
     </div>
