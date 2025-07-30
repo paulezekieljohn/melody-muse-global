@@ -1,17 +1,25 @@
 import { Song } from '@/types/song';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
-import { Music, Clock, Key } from 'lucide-react';
+import { Button } from '@/components/ui/button';
+import { Music, Clock, Key, Trash2, Edit } from 'lucide-react';
 
 interface SongCardProps {
   song: Song;
   onClick: () => void;
+  isAdmin?: boolean;
+  onDelete?: (songId: string, title: string) => void;
 }
 
-export const SongCard = ({ song, onClick }: SongCardProps) => {
+export const SongCard = ({ song, onClick, isAdmin = false, onDelete }: SongCardProps) => {
+  const handleDelete = (e: React.MouseEvent) => {
+    e.stopPropagation();
+    onDelete?.(song.id, song.title);
+  };
+
   return (
     <Card 
-      className="cursor-pointer card-music hover-lift glow-effect transition-all duration-300 border-2"
+      className="cursor-pointer card-music hover-lift glow-effect transition-all duration-300 border-2 relative group"
       onClick={onClick}
     >
       <CardHeader className="pb-3">
@@ -53,6 +61,21 @@ export const SongCard = ({ song, onClick }: SongCardProps) => {
             </Badge>
           )}
         </div>
+
+        {/* Admin Controls */}
+        {isAdmin && (
+          <div className="flex gap-1 mt-3">
+            <Button
+              size="sm"
+              variant="destructive"
+              onClick={handleDelete}
+              className="flex-1 text-xs h-7"
+            >
+              <Trash2 className="h-3 w-3 mr-1" />
+              Delete
+            </Button>
+          </div>
+        )}
       </CardContent>
     </Card>
   );

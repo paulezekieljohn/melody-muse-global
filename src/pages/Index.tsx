@@ -5,8 +5,11 @@ import { SongCard } from '@/components/SongCard';
 import { SongViewer } from '@/components/SongViewer';  
 import { SearchAndFilter } from '@/components/SearchAndFilter';
 import { LanguageSelector } from '@/components/LanguageSelector';
-import { Music, Settings } from 'lucide-react';
+import { Music, Settings, Plus, Lock, LogOut } from 'lucide-react';
 import { Button } from '@/components/ui/button';
+import { Input } from '@/components/ui/input';
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { useToast } from '@/hooks/use-toast';
 import { Link } from 'react-router-dom';
 
 const Index = () => {
@@ -18,42 +21,57 @@ const Index = () => {
   const [primaryLanguage, setPrimaryLanguage] = useState<LanguageCode | 'all' | null>(null);
   const [songs, setSongs] = useState<Song[]>([]);
   const [loading, setLoading] = useState(true);
+  
+  // Admin state
+  const [isAdmin, setIsAdmin] = useState(false);
+  const [showAdminLogin, setShowAdminLogin] = useState(false);
+  const [adminPassword, setAdminPassword] = useState('');
+  const [adminError, setAdminError] = useState('');
+  const [showAddSong, setShowAddSong] = useState(false);
+  const { toast } = useToast();
+  
+  const ADMIN_PASSWORD = 'admin123';
 
   // Load songs from database
+  const loadSongs = async () => {
+    const { data, error } = await supabase
+      .from('songs')
+      .select('*')
+      .order('created_at', { ascending: false });
+
+    if (error) {
+      console.error('Error loading songs:', error);
+    } else {
+      // Transform database data to match Song type
+      const transformedSongs: Song[] = data.map(song => ({
+        id: song.id,
+        title: song.title,
+        artist: song.artist,
+        language: song.language as LanguageCode,
+        genre: song.genre || undefined,
+        key: song.key || undefined,
+        tempo: song.tempo || undefined,
+        difficulty: song.difficulty as Song['difficulty'] || undefined,
+        collections: song.collections || [],
+        tags: song.tags || [],
+        lyrics: song.lyrics || '',
+        chords: song.chords || '',
+        languageVersions: song.language_versions && typeof song.language_versions === 'string'
+          ? JSON.parse(song.language_versions)
+          : undefined,
+      }));
+      setSongs(transformedSongs);
+    }
+    setLoading(false);
+  };
+
   useEffect(() => {
-    const loadSongs = async () => {
-      const { data, error } = await supabase
-        .from('songs')
-        .select('*')
-        .order('created_at', { ascending: false });
-
-      if (error) {
-        console.error('Error loading songs:', error);
-      } else {
-        // Transform database data to match Song type
-        const transformedSongs: Song[] = data.map(song => ({
-          id: song.id,
-          title: song.title,
-          artist: song.artist,
-          language: song.language as LanguageCode,
-          genre: song.genre || undefined,
-          key: song.key || undefined,
-          tempo: song.tempo || undefined,
-          difficulty: song.difficulty as Song['difficulty'] || undefined,
-          collections: song.collections || [],
-          tags: song.tags || [],
-          lyrics: song.lyrics || '',
-          chords: song.chords || '',
-          languageVersions: song.language_versions && typeof song.language_versions === 'string'
-            ? JSON.parse(song.language_versions)
-            : undefined,
-        }));
-        setSongs(transformedSongs);
-      }
-      setLoading(false);
-    };
-
     loadSongs();
+    // Check if user was previously authenticated as admin
+    const wasAdminAuth = localStorage.getItem('adminAuthenticated');
+    if (wasAdminAuth === 'true') {
+      setIsAdmin(true);
+    }
   }, []);
 
   const filteredSongs = useMemo(() => {
@@ -87,12 +105,134 @@ const Index = () => {
     setSelectedLanguage('all'); // Reset secondary filter
   };
 
+  // Admin functions
+  const handleAdminLogin = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (adminPassword === ADMIN_PASSWORD) {
+      setIsAdmin(true);
+      setShowAdminLogin(false);
+      setAdminError('');
+      setAdminPassword('');
+      localStorage.setItem('adminAuthenticated', 'true');
+      toast({
+        title: "Admin Access Granted",
+        description: "You can now manage songs directly from this page.",
+      });
+    } else {
+      setAdminError('Invalid password');
+      setAdminPassword('');
+    }
+  };
+
+  const handleAdminLogout = () => {
+    setIsAdmin(false);
+    setShowAdminLogin(false);
+    setAdminPassword('');
+    setAdminError('');
+    localStorage.removeItem('adminAuthenticated');
+    toast({
+      title: "Admin Logged Out",
+      description: "Admin controls have been disabled.",
+    });
+  };
+
+  const handleDeleteSong = async (songId: string, title: string) => {
+    if (!confirm(`Are you sure you want to delete "${title}"? This action cannot be undone.`)) {
+      return;
+    }
+
+    try {
+      const { error } = await supabase
+        .from('songs')
+        .delete()
+        .eq('id', songId);
+
+      if (error) {
+        toast({
+          title: "Error",
+          description: "Failed to delete song. Please try again.",
+          variant: "destructive",
+        });
+      } else {
+        toast({
+          title: "Song Deleted",
+          description: `"${title}" has been deleted successfully.`,
+        });
+        // Reload songs
+        loadSongs();
+      }
+    } catch (error) {
+      toast({
+        title: "Error",
+        description: "Failed to delete song. Please try again.",
+        variant: "destructive",
+      });
+    }
+  };
+
   // Show language selector if no primary language is selected
   if (primaryLanguage === null) {
     return (
-      <LanguageSelector
-        onLanguageSelect={handleLanguageSelect}
-      />
+      <div className="min-h-screen bg-gradient-to-br from-background via-background to-muted/20">
+        <LanguageSelector onLanguageSelect={handleLanguageSelect} />
+        
+        {/* Admin Login Option */}
+        {!isAdmin && (
+          <div className="fixed bottom-4 right-4">
+            <Button
+              onClick={() => setShowAdminLogin(true)}
+              variant="outline"
+              size="sm"
+              className="shadow-lg"
+            >
+              <Lock className="h-4 w-4 mr-2" />
+              Admin
+            </Button>
+          </div>
+        )}
+
+        {/* Admin Login Modal */}
+        {showAdminLogin && (
+          <div className="fixed inset-0 bg-black/50 flex items-center justify-center p-4 z-50">
+            <Card className="w-full max-w-md">
+              <CardHeader className="text-center">
+                <CardTitle className="flex items-center justify-center gap-2">
+                  <Lock className="h-5 w-5" />
+                  Admin Login
+                </CardTitle>
+              </CardHeader>
+              <CardContent>
+                <form onSubmit={handleAdminLogin} className="space-y-4">
+                  <Input
+                    type="password"
+                    placeholder="Enter admin password"
+                    value={adminPassword}
+                    onChange={(e) => setAdminPassword(e.target.value)}
+                    className={adminError ? 'border-destructive' : ''}
+                  />
+                  {adminError && (
+                    <p className="text-destructive text-sm">{adminError}</p>
+                  )}
+                  <div className="flex gap-2">
+                    <Button type="submit" className="flex-1">Login</Button>
+                    <Button
+                      type="button"
+                      variant="outline"
+                      onClick={() => {
+                        setShowAdminLogin(false);
+                        setAdminPassword('');
+                        setAdminError('');
+                      }}
+                    >
+                      Cancel
+                    </Button>
+                  </div>
+                </form>
+              </CardContent>
+            </Card>
+          </div>
+        )}
+      </div>
     );
   }
 
@@ -117,12 +257,39 @@ const Index = () => {
                 Melody Muse
               </h1>
             </div>
-            <Link to="/admin" className="sm:absolute sm:right-0 order-last sm:order-none">
-              <Button variant="outline" size="sm">
-                <Settings className="h-4 w-4 mr-2" />
-                Admin
-              </Button>
-            </Link>
+            
+            {/* Admin Controls */}
+            <div className="sm:absolute sm:right-0 order-last sm:order-none flex gap-2">
+              {isAdmin ? (
+                <>
+                  <Button
+                    onClick={() => setShowAddSong(true)}
+                    variant="default"
+                    size="sm"
+                  >
+                    <Plus className="h-4 w-4 mr-2" />
+                    Add Song
+                  </Button>
+                  <Button
+                    onClick={handleAdminLogout}
+                    variant="outline"
+                    size="sm"
+                  >
+                    <LogOut className="h-4 w-4 mr-2" />
+                    Logout
+                  </Button>
+                </>
+              ) : (
+                <Button
+                  onClick={() => setShowAdminLogin(true)}
+                  variant="outline"
+                  size="sm"
+                >
+                  <Lock className="h-4 w-4 mr-2" />
+                  Admin
+                </Button>
+              )}
+            </div>
           </div>
           <p className="text-lg sm:text-xl text-muted-foreground">Your personal songbook collection</p>
         </div>
@@ -163,6 +330,8 @@ const Index = () => {
                   key={song.id}
                   song={song}
                   onClick={() => setSelectedSong(song)}
+                  isAdmin={isAdmin}
+                  onDelete={handleDeleteSong}
                 />
               ))}
             </div>
@@ -184,6 +353,82 @@ const Index = () => {
           open={!!selectedSong}
           onClose={() => setSelectedSong(null)}
         />
+
+        {/* Admin Login Modal */}
+        {showAdminLogin && (
+          <div className="fixed inset-0 bg-black/50 flex items-center justify-center p-4 z-50">
+            <Card className="w-full max-w-md">
+              <CardHeader className="text-center">
+                <CardTitle className="flex items-center justify-center gap-2">
+                  <Lock className="h-5 w-5" />
+                  Admin Login
+                </CardTitle>
+              </CardHeader>
+              <CardContent>
+                <form onSubmit={handleAdminLogin} className="space-y-4">
+                  <Input
+                    type="password"
+                    placeholder="Enter admin password"
+                    value={adminPassword}
+                    onChange={(e) => setAdminPassword(e.target.value)}
+                    className={adminError ? 'border-destructive' : ''}
+                  />
+                  {adminError && (
+                    <p className="text-destructive text-sm">{adminError}</p>
+                  )}
+                  <div className="flex gap-2">
+                    <Button type="submit" className="flex-1">Login</Button>
+                    <Button
+                      type="button"
+                      variant="outline"
+                      onClick={() => {
+                        setShowAdminLogin(false);
+                        setAdminPassword('');
+                        setAdminError('');
+                      }}
+                    >
+                      Cancel
+                    </Button>
+                  </div>
+                </form>
+              </CardContent>
+            </Card>
+          </div>
+        )}
+
+        {/* Add Song Modal */}
+        {showAddSong && (
+          <div className="fixed inset-0 bg-black/50 flex items-center justify-center p-4 z-50 overflow-y-auto">
+            <div className="w-full max-w-2xl my-8">
+              <Card>
+                <CardHeader>
+                  <CardTitle className="flex items-center justify-between">
+                    <div className="flex items-center gap-2">
+                      <Plus className="h-5 w-5" />
+                      Add New Song
+                    </div>
+                    <Button
+                      variant="ghost"
+                      size="sm"
+                      onClick={() => setShowAddSong(false)}
+                    >
+                      ×
+                    </Button>
+                  </CardTitle>
+                </CardHeader>
+                <CardContent>
+                  <p className="text-center text-muted-foreground">
+                    Use the{" "}
+                    <Link to="/admin" className="text-primary underline">
+                      full admin panel
+                    </Link>{" "}
+                    to add songs with all features.
+                  </p>
+                </CardContent>
+              </Card>
+            </div>
+          </div>
+        )}
       </div>
     </div>
   );
