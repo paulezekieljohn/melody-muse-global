@@ -1,9 +1,13 @@
+import { useState } from 'react';
 import { Card, CardContent } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
+import { Input } from '@/components/ui/input';
 import { languages } from '@/data/songs';
 import { LanguageCode } from '@/types/song';
-import { Globe, ArrowLeft } from 'lucide-react';
+import { Globe, ArrowLeft, Settings, Lock, LogOut } from 'lucide-react';
 import { Button } from '@/components/ui/button';
+import { Link } from 'react-router-dom';
+import { useToast } from '@/hooks/use-toast';
 
 interface LanguageSelectorProps {
   onLanguageSelect: (language: LanguageCode | 'all') => void;
@@ -16,6 +20,45 @@ export const LanguageSelector = ({
   onBack, 
   showBackButton = false 
 }: LanguageSelectorProps) => {
+  const [isAdmin, setIsAdmin] = useState(() => {
+    return localStorage.getItem('adminAuthenticated') === 'true';
+  });
+  const [showAdminLogin, setShowAdminLogin] = useState(false);
+  const [adminPassword, setAdminPassword] = useState('');
+  const [adminError, setAdminError] = useState('');
+  const { toast } = useToast();
+  
+  const ADMIN_PASSWORD = 'admin123';
+
+  const handleAdminLogin = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (adminPassword === ADMIN_PASSWORD) {
+      setIsAdmin(true);
+      setShowAdminLogin(false);
+      setAdminError('');
+      setAdminPassword('');
+      localStorage.setItem('adminAuthenticated', 'true');
+      toast({
+        title: "Admin Access Granted",
+        description: "You can now access admin features.",
+      });
+    } else {
+      setAdminError('Invalid password');
+      setAdminPassword('');
+    }
+  };
+
+  const handleAdminLogout = () => {
+    setIsAdmin(false);
+    setShowAdminLogin(false);
+    setAdminPassword('');
+    setAdminError('');
+    localStorage.removeItem('adminAuthenticated');
+    toast({
+      title: "Admin Logged Out",
+      description: "Admin access has been revoked.",
+    });
+  };
   return (
     <div className="min-h-screen bg-gradient-to-br from-background via-background to-muted/20">
       <div className="container mx-auto px-4 py-8">
@@ -33,6 +76,53 @@ export const LanguageSelector = ({
               <h1 className="text-2xl sm:text-4xl font-bold bg-gradient-to-r from-primary to-purple-600 bg-clip-text text-transparent">
                 Select Language
               </h1>
+            </div>
+            
+            {/* Settings and Admin Controls */}
+            <div className="sm:absolute sm:right-0 order-last sm:order-none flex gap-2">
+              <Link to="/settings">
+                <Button
+                  variant="outline"
+                  size="sm"
+                  className="shadow-lg border-primary/30 hover:border-primary/50"
+                >
+                  <Settings className="h-4 w-4 mr-2" />
+                  Settings
+                </Button>
+              </Link>
+              {isAdmin ? (
+                <>
+                  <Link to="/admin">
+                    <Button
+                      variant="default"
+                      size="sm"
+                      className="shadow-lg"
+                    >
+                      <Lock className="h-4 w-4 mr-2" />
+                      Admin Panel
+                    </Button>
+                  </Link>
+                  <Button
+                    onClick={handleAdminLogout}
+                    variant="outline"
+                    size="sm"
+                    className="shadow-lg border-destructive/30 hover:border-destructive/50"
+                  >
+                    <LogOut className="h-4 w-4 mr-2" />
+                    Logout
+                  </Button>
+                </>
+              ) : (
+                <Button
+                  onClick={() => setShowAdminLogin(true)}
+                  variant="outline"
+                  size="sm"
+                  className="shadow-lg border-primary/30 hover:border-primary/50"
+                >
+                  <Lock className="h-4 w-4 mr-2" />
+                  Admin
+                </Button>
+              )}
             </div>
           </div>
           <p className="text-lg sm:text-xl text-muted-foreground">Choose your preferred language for songs</p>
@@ -83,6 +173,46 @@ export const LanguageSelector = ({
             );
           })}
         </div>
+
+        {/* Admin Login Modal */}
+        {showAdminLogin && (
+          <div className="fixed inset-0 bg-black/50 flex items-center justify-center p-4 z-50">
+            <Card className="w-full max-w-md">
+              <CardContent className="p-6">
+                <h3 className="text-lg font-semibold mb-4 flex items-center gap-2">
+                  <Lock className="h-5 w-5" />
+                  Admin Login
+                </h3>
+                <form onSubmit={handleAdminLogin} className="space-y-4">
+                  <Input
+                    type="password"
+                    placeholder="Enter admin password"
+                    value={adminPassword}
+                    onChange={(e) => setAdminPassword(e.target.value)}
+                    className={adminError ? 'border-destructive' : ''}
+                  />
+                  {adminError && (
+                    <p className="text-destructive text-sm">{adminError}</p>
+                  )}
+                  <div className="flex gap-2">
+                    <Button type="submit" className="flex-1">Login</Button>
+                    <Button
+                      type="button"
+                      variant="outline"
+                      onClick={() => {
+                        setShowAdminLogin(false);
+                        setAdminPassword('');
+                        setAdminError('');
+                      }}
+                    >
+                      Cancel
+                    </Button>
+                  </div>
+                </form>
+              </CardContent>
+            </Card>
+          </div>
+        )}
       </div>
     </div>
   );
