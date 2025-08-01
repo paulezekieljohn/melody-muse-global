@@ -26,7 +26,7 @@ const songSchema = z.object({
   key: z.string().optional(),
   tempo: z.number().min(1).max(300).optional(),
   genre: z.string().optional(),
-  language: z.enum(['en', 'es', 'fr', 'hi', 'ta', 'te', 'mr', 'kn'] as const),
+  language: z.enum(['hi', 'en', 'ta', 'te', 'mr', 'kn', 'bn', 'gu', 'ml', 'pa', 'or', 'as'] as const),
   difficulty: z.enum(['beginner', 'intermediate', 'advanced']).optional(),
 });
 
@@ -385,14 +385,18 @@ const Admin = () => {
                             </SelectTrigger>
                           </FormControl>
                           <SelectContent>
-                            <SelectItem value="en">🇺🇸 English</SelectItem>
-                            <SelectItem value="es">🇪🇸 Español</SelectItem>
-                            <SelectItem value="fr">🇫🇷 Français</SelectItem>
                             <SelectItem value="hi">🇮🇳 हिंदी</SelectItem>
+                            <SelectItem value="en">🇮🇳 English</SelectItem>
                             <SelectItem value="ta">🇮🇳 தமிழ்</SelectItem>
                             <SelectItem value="te">🇮🇳 తెలుగు</SelectItem>
                             <SelectItem value="mr">🇮🇳 मराठी</SelectItem>
                             <SelectItem value="kn">🇮🇳 ಕನ್ನಡ</SelectItem>
+                            <SelectItem value="bn">🇮🇳 বাংলা</SelectItem>
+                            <SelectItem value="gu">🇮🇳 ગુજરાતી</SelectItem>
+                            <SelectItem value="ml">🇮🇳 മലയാളം</SelectItem>
+                            <SelectItem value="pa">🇮🇳 ਪੰਜਾਬੀ</SelectItem>
+                            <SelectItem value="or">🇮🇳 ଓଡ଼ିଆ</SelectItem>
+                            <SelectItem value="as">🇮🇳 অসমীয়া</SelectItem>
                           </SelectContent>
                         </Select>
                         <FormMessage />
