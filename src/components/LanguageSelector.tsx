@@ -56,12 +56,12 @@ export const LanguageSelector = ({
           {/* Individual Language Cards */}
           {languages.map((language, index) => {
             const gradients = [
-              'bg-gradient-to-br from-violet-500/20 via-purple-500/20 to-pink-500/20',
-              'bg-gradient-to-br from-blue-500/20 via-cyan-500/20 to-teal-500/20',
-              'bg-gradient-to-br from-emerald-500/20 via-green-500/20 to-lime-500/20',
-              'bg-gradient-to-br from-orange-500/20 via-red-500/20 to-pink-500/20',
-              'bg-gradient-to-br from-indigo-500/20 via-purple-500/20 to-pink-500/20',
-              'bg-gradient-to-br from-cyan-500/20 via-blue-500/20 to-indigo-500/20'
+              'bg-gradient-to-br from-violet-500/40 via-purple-500/60 to-pink-500/50',
+              'bg-gradient-to-br from-blue-500/40 via-cyan-500/60 to-teal-500/50',
+              'bg-gradient-to-br from-emerald-500/40 via-green-500/60 to-lime-500/50',
+              'bg-gradient-to-br from-orange-500/40 via-red-500/60 to-pink-500/50',
+              'bg-gradient-to-br from-indigo-500/40 via-purple-500/60 to-pink-500/50',
+              'bg-gradient-to-br from-cyan-500/40 via-blue-500/60 to-indigo-500/50'
             ];
             const gradientClass = gradients[index % gradients.length];
             

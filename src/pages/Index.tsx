@@ -262,14 +262,15 @@ const Index = () => {
             <div className="sm:absolute sm:right-0 order-last sm:order-none flex gap-2">
               {isAdmin ? (
                 <>
-                  <Button
-                    onClick={() => setShowAddSong(true)}
-                    variant="default"
-                    size="sm"
-                  >
-                    <Plus className="h-4 w-4 mr-2" />
-                    Add Song
-                  </Button>
+                  <Link to="/admin">
+                    <Button
+                      variant="default"
+                      size="sm"
+                    >
+                      <Plus className="h-4 w-4 mr-2" />
+                      Add Song
+                    </Button>
+                  </Link>
                   <Button
                     onClick={handleAdminLogout}
                     variant="outline"
@@ -396,39 +397,6 @@ const Index = () => {
           </div>
         )}
 
-        {/* Add Song Modal */}
-        {showAddSong && (
-          <div className="fixed inset-0 bg-black/50 flex items-center justify-center p-4 z-50 overflow-y-auto">
-            <div className="w-full max-w-2xl my-8">
-              <Card>
-                <CardHeader>
-                  <CardTitle className="flex items-center justify-between">
-                    <div className="flex items-center gap-2">
-                      <Plus className="h-5 w-5" />
-                      Add New Song
-                    </div>
-                    <Button
-                      variant="ghost"
-                      size="sm"
-                      onClick={() => setShowAddSong(false)}
-                    >
-                      ×
-                    </Button>
-                  </CardTitle>
-                </CardHeader>
-                <CardContent>
-                  <p className="text-center text-muted-foreground">
-                    Use the{" "}
-                    <Link to="/admin" className="text-primary underline">
-                      full admin panel
-                    </Link>{" "}
-                    to add songs with all features.
-                  </p>
-                </CardContent>
-              </Card>
-            </div>
-          </div>
-        )}
       </div>
     </div>
   );

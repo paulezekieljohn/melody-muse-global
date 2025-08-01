@@ -57,30 +57,31 @@
   }
 
   .dark {
-    --background: 240 15% 8%;
-    --foreground: 270 20% 95%;
-    --card: 240 15% 10%;
-    --card-foreground: 270 20% 95%;
-    --popover: 240 15% 10%;
-    --popover-foreground: 270 20% 95%;
+    /* Ultra vibrant neon dark theme */
+    --background: 240 15% 4%;
+    --foreground: 0 0% 98%;
+    --card: 240 20% 8%;
+    --card-foreground: 0 0% 98%;
+    --popover: 240 20% 8%;
+    --popover-foreground: 0 0% 98%;
     
-    /* Enhanced Dark Mode Primary */
-    --primary: 280 85% 70%;
-    --primary-glow: 300 90% 80%;
-    --primary-foreground: 240 15% 8%;
+    /* Neon primary colors */
+    --primary: 290 100% 75%;
+    --primary-glow: 320 100% 85%;
+    --primary-foreground: 0 0% 98%;
     
-    --secondary: 240 15% 18%;
-    --secondary-foreground: 270 20% 95%;
-    --muted: 240 15% 15%;
-    --muted-foreground: 240 10% 65%;
-    --accent: 185 70% 60%;
-    --accent-foreground: 240 15% 8%;
+    --secondary: 240 25% 12%;
+    --secondary-foreground: 0 0% 98%;
+    --muted: 240 20% 10%;
+    --muted-foreground: 240 5% 64.9%;
+    --accent: 180 100% 75%;
+    --accent-foreground: 0 0% 98%;
     
-    --destructive: 0 85% 60%;
-    --destructive-foreground: 270 20% 95%;
-    --border: 240 15% 20%;
-    --input: 240 15% 18%;
-    --ring: 280 85% 70%;
+    --destructive: 0 100% 70%;
+    --destructive-foreground: 0 0% 98%;
+    --border: 240 20% 18%;
+    --input: 240 20% 12%;
+    --ring: 290 100% 75%;
     
     /* Dark Chart Colors */
     --chart-1: 280 85% 70%;
@@ -89,16 +90,16 @@
     --chart-4: 140 65% 60%;
     --chart-5: 320 75% 75%;
     
-    /* Dark Gradients */
-    --gradient-primary: linear-gradient(135deg, hsl(280 85% 70%), hsl(300 90% 80%));
-    --gradient-secondary: linear-gradient(135deg, hsl(240 15% 18%), hsl(250 20% 22%));
-    --gradient-accent: linear-gradient(135deg, hsl(185 70% 60%), hsl(200 75% 65%));
-    --gradient-background: linear-gradient(135deg, hsl(240 15% 8%), hsl(250 20% 12%));
+    /* Ultra vibrant neon gradients */
+    --gradient-primary: linear-gradient(135deg, hsl(290 100% 75%) 0%, hsl(320 100% 85%) 25%, hsl(350 100% 80%) 50%, hsl(270 100% 70%) 100%);
+    --gradient-secondary: linear-gradient(135deg, hsl(180 100% 75%) 0%, hsl(200 100% 80%) 25%, hsl(220 100% 85%) 50%, hsl(240 100% 80%) 100%);
+    --gradient-accent: linear-gradient(135deg, hsl(0 100% 75%) 0%, hsl(30 100% 80%) 25%, hsl(60 100% 75%) 50%, hsl(90 100% 70%) 100%);
+    --gradient-background: linear-gradient(135deg, hsl(240 15% 4%) 0%, hsl(250 20% 6%) 25%, hsl(260 25% 8%) 50%, hsl(270 30% 10%) 100%);
     
-    /* Dark Shadows */
-    --shadow-primary: 0 10px 30px -5px hsl(280 85% 70% / 0.4);
-    --shadow-secondary: 0 10px 30px -5px hsl(240 15% 5% / 0.5);
-    --shadow-glow: 0 0 40px hsl(280 85% 80% / 0.3);
+    /* Intense glow shadows */
+    --shadow-primary: 0 15px 40px -10px hsl(290 100% 75% / 0.6), 0 0 60px hsl(320 100% 85% / 0.4), 0 0 120px hsl(350 100% 80% / 0.3);
+    --shadow-secondary: 0 12px 35px -8px hsl(180 100% 75% / 0.5), 0 0 50px hsl(200 100% 80% / 0.3), 0 0 100px hsl(220 100% 85% / 0.2);
+    --shadow-glow: 0 0 80px hsl(290 100% 75% / 0.8), 0 0 150px hsl(320 100% 85% / 0.6), 0 0 250px hsl(350 100% 80% / 0.4);
   }
 }
 
@@ -128,15 +129,13 @@ All colors MUST be HSL.
 }
 
 @layer components {
-  /* Beautiful Card Variants */
+  /* Ultra vibrant card variants */
   .card-gradient {
-    @apply bg-gradient-to-br from-card to-card/80 shadow-lg hover:shadow-xl transition-all duration-300;
-    box-shadow: var(--shadow-secondary);
+    @apply bg-gradient-to-br from-primary/30 via-primary-glow/40 to-accent/30 backdrop-blur-sm border-primary/40 shadow-primary transition-all duration-300;
   }
   
   .card-music {
-    @apply bg-gradient-to-br from-primary/5 to-accent/5 border-primary/20 hover:border-primary/40 transition-all duration-300;
-    box-shadow: var(--shadow-primary);
+    @apply backdrop-blur-lg border-white/30 shadow-lg transition-all duration-300;
   }
   
   /* Button Enhancements */
