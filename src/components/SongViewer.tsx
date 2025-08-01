@@ -4,7 +4,7 @@ import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { ScrollArea } from '@/components/ui/scroll-area';
 import { Separator } from '@/components/ui/separator';
-import { Music, Clock, Key, Gauge, Languages } from 'lucide-react';
+import { Music, Clock, Key, Gauge, Languages, ZoomIn, ZoomOut, RotateCcw } from 'lucide-react';
 import { Song, SongLanguageVersion, LanguageCode } from '@/types/song';
 import { collections, languages } from '@/data/songs';
 
@@ -16,6 +16,7 @@ interface SongViewerProps {
 
 export const SongViewer = ({ song, open, onClose }: SongViewerProps) => {
   const [selectedLanguage, setSelectedLanguage] = useState<LanguageCode | ''>('');
+  const [lyricsZoom, setLyricsZoom] = useState(100); // Zoom percentage
 
   // Get available languages for the song
   const availableLanguages = useMemo(() => {
@@ -39,12 +40,25 @@ export const SongViewer = ({ song, open, onClose }: SongViewerProps) => {
     return song.languageVersions?.[selectedLanguage] || song;
   }, [song, selectedLanguage]);
 
-  // Reset selected language when song changes
+  // Reset selected language and zoom when song changes
   useEffect(() => {
     if (song) {
       setSelectedLanguage(song.language);
+      setLyricsZoom(100);
     }
   }, [song]);
+
+  const handleZoomIn = () => {
+    setLyricsZoom(prev => Math.min(prev + 10, 200));
+  };
+
+  const handleZoomOut = () => {
+    setLyricsZoom(prev => Math.max(prev - 10, 50));
+  };
+
+  const resetZoom = () => {
+    setLyricsZoom(100);
+  };
 
   if (!song || !currentSongData) return null;
 
@@ -147,9 +161,46 @@ export const SongViewer = ({ song, open, onClose }: SongViewerProps) => {
 
             {/* Lyrics */}
             <div>
-              <h3 className="text-lg font-semibold mb-3">Lyrics</h3>
+              <div className="flex items-center justify-between mb-3">
+                <h3 className="text-lg font-semibold">Lyrics</h3>
+                <div className="flex items-center gap-2">
+                  <Button
+                    variant="outline"
+                    size="sm"
+                    onClick={handleZoomOut}
+                    disabled={lyricsZoom <= 50}
+                  >
+                    <ZoomOut className="h-4 w-4" />
+                  </Button>
+                  <Button
+                    variant="outline"
+                    size="sm"
+                    onClick={resetZoom}
+                    disabled={lyricsZoom === 100}
+                  >
+                    <RotateCcw className="h-4 w-4" />
+                  </Button>
+                  <Button
+                    variant="outline"
+                    size="sm"
+                    onClick={handleZoomIn}
+                    disabled={lyricsZoom >= 200}
+                  >
+                    <ZoomIn className="h-4 w-4" />
+                  </Button>
+                  <span className="text-sm text-muted-foreground min-w-[3rem]">
+                    {lyricsZoom}%
+                  </span>
+                </div>
+              </div>
               <div className="bg-muted/30 p-4 rounded-lg">
-                <pre className="whitespace-pre-wrap text-sm leading-relaxed font-mono">
+                <pre 
+                  className="whitespace-pre-wrap leading-relaxed font-mono"
+                  style={{ 
+                    fontSize: `${lyricsZoom}%`,
+                    lineHeight: lyricsZoom > 120 ? '1.4' : '1.6'
+                  }}
+                >
                   {currentSongData.lyrics}
                 </pre>
               </div>
@@ -160,7 +211,13 @@ export const SongViewer = ({ song, open, onClose }: SongViewerProps) => {
               <div>
                 <h3 className="text-lg font-semibold mb-3">Chords</h3>
                 <div className="bg-muted/30 p-4 rounded-lg">
-                  <pre className="whitespace-pre-wrap text-sm leading-relaxed font-mono">
+                  <pre 
+                    className="whitespace-pre-wrap leading-relaxed font-mono"
+                    style={{ 
+                      fontSize: `${Math.max(lyricsZoom * 0.9, 80)}%`,
+                      lineHeight: '1.6'
+                    }}
+                  >
                     {currentSongData.chords}
                   </pre>
                 </div>

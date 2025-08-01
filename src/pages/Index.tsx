@@ -258,8 +258,17 @@ const Index = () => {
               </h1>
             </div>
             
-            {/* Admin Controls */}
+            {/* Settings and Admin Controls */}
             <div className="sm:absolute sm:right-0 order-last sm:order-none flex gap-2">
+              <Link to="/settings">
+                <Button
+                  variant="outline"
+                  size="sm"
+                >
+                  <Settings className="h-4 w-4 mr-2" />
+                  Settings
+                </Button>
+              </Link>
               {isAdmin ? (
                 <>
                   <Link to="/admin">

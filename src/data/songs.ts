@@ -1,14 +1,18 @@
 import { Song, Collection, Language } from '@/types/song';
 
 export const languages: Language[] = [
-  { code: 'en', name: 'English', flag: '🇺🇸' },
-  { code: 'es', name: 'Español', flag: '🇪🇸' },
-  { code: 'fr', name: 'Français', flag: '🇫🇷' },
   { code: 'hi', name: 'हिंदी', flag: '🇮🇳' },
+  { code: 'en', name: 'English', flag: '🇮🇳' },
   { code: 'ta', name: 'தமிழ்', flag: '🇮🇳' },
   { code: 'te', name: 'తెలుగు', flag: '🇮🇳' },
   { code: 'mr', name: 'मराठी', flag: '🇮🇳' },
-  { code: 'kn', name: 'ಕನ್ನಡ', flag: '🇮🇳' }
+  { code: 'kn', name: 'ಕನ್ನಡ', flag: '🇮🇳' },
+  { code: 'bn', name: 'বাংলা', flag: '🇮🇳' },
+  { code: 'gu', name: 'ગુજરાતી', flag: '🇮🇳' },
+  { code: 'ml', name: 'മലയാളം', flag: '🇮🇳' },
+  { code: 'pa', name: 'ਪੰਜਾਬੀ', flag: '🇮🇳' },
+  { code: 'or', name: 'ଓଡ଼ିଆ', flag: '🇮🇳' },
+  { code: 'as', name: 'অসমীয়া', flag: '🇮🇳' }
 ];
 
 export const collections: Collection[] = [
