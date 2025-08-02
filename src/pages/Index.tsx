@@ -1,6 +1,7 @@
 import { useState, useMemo, useEffect } from 'react';
 import { supabase } from '@/integrations/supabase/client';
 import { Song, LanguageCode } from '@/types/song';
+import { songs as localSongs } from '@/data/songs';
 import { SongCard } from '@/components/SongCard';
 import { SongViewer } from '@/components/SongViewer';  
 import { SearchAndFilter } from '@/components/SearchAndFilter';
@@ -41,6 +42,11 @@ const Index = () => {
 
     if (error) {
       console.error('Error loading songs:', error);
+      // Fall back to local songs if there's an error
+      setSongs(localSongs);
+    } else if (data.length === 0) {
+      // Fall back to local songs if database is empty
+      setSongs(localSongs);
     } else {
       // Transform database data to match Song type
       const transformedSongs: Song[] = data.map(song => ({
