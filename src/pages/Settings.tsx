@@ -72,7 +72,7 @@ const Settings = () => {
           {/* Theme Settings */}
           <Card className="card-gradient border-0">
             <CardHeader>
-              <CardTitle className="flex items-center gap-2 text-white">
+              <CardTitle className="flex items-center gap-2 text-card-foreground">
                 <Palette className="h-5 w-5" />
                 Appearance
               </CardTitle>
@@ -80,21 +80,21 @@ const Settings = () => {
             <CardContent className="space-y-4">
               <div className="flex items-center justify-between">
                 <div className="space-y-1">
-                  <Label htmlFor="dark-mode" className="text-base font-medium text-white">
+                  <Label htmlFor="dark-mode" className="text-base font-medium text-card-foreground">
                     Dark Mode
                   </Label>
-                  <p className="text-sm text-white/80">
+                  <p className="text-sm text-muted-foreground">
                     Switch between light and dark themes
                   </p>
                 </div>
                 <div className="flex items-center gap-3">
-                  <Sun className="h-4 w-4 text-white/60" />
+                  <Sun className="h-4 w-4 text-muted-foreground" />
                   <Switch
                     id="dark-mode"
                     checked={theme === 'dark'}
                     onCheckedChange={handleThemeToggle}
                   />
-                  <Moon className="h-4 w-4 text-white/60" />
+                  <Moon className="h-4 w-4 text-muted-foreground" />
                 </div>
               </div>
             </CardContent>
@@ -103,7 +103,7 @@ const Settings = () => {
           {/* Language Settings */}
           <Card className="card-music border-0">
             <CardHeader>
-              <CardTitle className="flex items-center gap-2 text-white">
+              <CardTitle className="flex items-center gap-2 text-card-foreground">
                 <Globe className="h-5 w-5" />
                 App Language
               </CardTitle>
@@ -111,24 +111,20 @@ const Settings = () => {
             <CardContent className="space-y-4">
               <div className="space-y-3">
                 <div>
-                  <Label className="text-base font-medium text-white">
+                  <Label className="text-base font-medium text-card-foreground">
                     Choose your preferred language for the app interface
                   </Label>
-                  <p className="text-sm text-white/80 mt-1">
+                  <p className="text-sm text-muted-foreground mt-1">
                     This changes the language of menus, buttons, and interface text
                   </p>
                 </div>
-                <Separator className="bg-white/20" />
+                <Separator />
                 <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
                   {languages.map((language) => (
                     <Button
                       key={language.code}
                       variant={appLanguage === language.code ? "default" : "outline"}
-                      className={`p-4 h-auto flex items-center gap-3 justify-start ${
-                        appLanguage === language.code 
-                          ? 'bg-white/20 text-white border-white/40 hover:bg-white/30' 
-                          : 'bg-white/5 text-white border-white/20 hover:bg-white/10'
-                      }`}
+                      className="p-4 h-auto flex items-center gap-3 justify-start"
                       onClick={() => handleLanguageChange(language.code)}
                     >
                       <span className="text-2xl">{language.flag}</span>
@@ -139,7 +135,7 @@ const Settings = () => {
                         </div>
                       </div>
                       {appLanguage === language.code && (
-                        <Badge variant="secondary" className="ml-auto bg-white/30 text-white border-0">
+                        <Badge variant="secondary" className="ml-auto">
                           Active
                         </Badge>
                       )}
