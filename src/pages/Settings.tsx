@@ -11,25 +11,20 @@ import { languages } from '@/data/songs';
 import { LanguageCode } from '@/types/song';
 import { Link } from 'react-router-dom';
 import { useToast } from '@/hooks/use-toast';
+import { useAppLanguage } from '@/contexts/AppLanguageContext';
 
 const Settings = () => {
   const { theme, setTheme } = useTheme();
   const { toast } = useToast();
+  const { appLanguage, setAppLanguage, getTranslation } = useAppLanguage();
   const [mounted, setMounted] = useState(false);
-  const [appLanguage, setAppLanguage] = useState<LanguageCode>('en');
 
   useEffect(() => {
     setMounted(true);
-    // Load saved app language from localStorage
-    const savedLanguage = localStorage.getItem('appLanguage') as LanguageCode;
-    if (savedLanguage && languages.find(l => l.code === savedLanguage)) {
-      setAppLanguage(savedLanguage);
-    }
   }, []);
 
   const handleLanguageChange = (languageCode: LanguageCode) => {
     setAppLanguage(languageCode);
-    localStorage.setItem('appLanguage', languageCode);
     toast({
       title: "Language Updated",
       description: `App language changed to ${languages.find(l => l.code === languageCode)?.name}`,
