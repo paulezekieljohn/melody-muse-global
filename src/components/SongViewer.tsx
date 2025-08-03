@@ -64,17 +64,17 @@ export const SongViewer = ({ song, open, onClose }: SongViewerProps) => {
 
   return (
     <Dialog open={open} onOpenChange={onClose}>
-      <DialogContent className="max-w-6xl max-h-[95vh] w-[98vw] sm:w-[95vw] md:w-full p-3 sm:p-6">
-        <DialogHeader>
-          <DialogTitle className="flex items-center gap-2 text-2xl">
-            <Music className="h-6 w-6 text-primary" />
+      <DialogContent className="max-w-6xl h-[95vh] w-[98vw] sm:w-[95vw] md:w-full p-3 sm:p-6 flex flex-col">
+        <DialogHeader className="flex-shrink-0">
+          <DialogTitle className="flex items-center gap-2 text-xl sm:text-2xl">
+            <Music className="h-5 w-5 sm:h-6 sm:w-6 text-primary" />
             {currentSongData.title}
           </DialogTitle>
-          <p className="text-lg text-muted-foreground">{currentSongData.artist}</p>
+          <p className="text-base sm:text-lg text-muted-foreground">{currentSongData.artist}</p>
         </DialogHeader>
 
-        <ScrollArea className="flex-1">
-          <div className="space-y-6 p-1">
+        <ScrollArea className="flex-1 overflow-auto">
+          <div className="space-y-4 sm:space-y-6 p-1 pb-6">
             {/* Language Selector */}
             {availableLanguages.length > 1 && (
               <div className="flex flex-col sm:flex-row items-start sm:items-center gap-2 p-4 bg-muted/50 rounded-lg">

@@ -87,7 +87,15 @@ export const songs: Song[] = [
     language: "en",
     collections: ["classic", "worship"],
     tags: ["grace", "salvation", "traditional"],
-    difficulty: "beginner"
+    difficulty: "beginner",
+    languageVersions: {
+      "hi": {
+        title: "अद्भुत कृपा",
+        artist: "Traditional Gospel",
+        lyrics: `अद्भुत कृपा, कितनी मधुर ध्वनि\nजिसने मुझ पापी को बचाया\nमैं खो गया था, अब मिल गया\nअंधा था, अब देखता हूं\n\nकृपा ने सिखाया मेरे दिल को डरना\nऔर कृपा ने मेरे डर को दूर किया\nकितनी बहुमूल्य लगी वह कृपा\nजिस घड़ी मैंने पहली बार विश्वास किया`,
+        chords: "G - G7 - C - G - Em - G - D - G"
+      }
+    }
   },
   {
     id: "english-2",
