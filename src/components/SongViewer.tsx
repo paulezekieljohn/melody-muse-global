@@ -64,7 +64,7 @@ export const SongViewer = ({ song, open, onClose }: SongViewerProps) => {
 
   return (
     <Dialog open={open} onOpenChange={onClose}>
-      <DialogContent className="max-w-4xl max-h-[90vh] w-[95vw] sm:w-full">
+      <DialogContent className="max-w-6xl max-h-[95vh] w-[98vw] sm:w-[95vw] md:w-full p-3 sm:p-6">
         <DialogHeader>
           <DialogTitle className="flex items-center gap-2 text-2xl">
             <Music className="h-6 w-6 text-primary" />
