@@ -34,377 +34,283 @@ export const collections: Collection[] = [
 
 export const songs: Song[] = [
   {
-    id: 'amazing-grace',
-    title: 'Amazing Grace',
-    artist: 'John Newton',
-    language: 'en',
-    genre: 'Hymn',
-    key: 'G',
-    tempo: 90,
-    difficulty: 'beginner',
-    collections: ['worship', 'traditional'],
-    tags: ['classic', 'hymn', 'salvation'],
-    lyrics: `Amazing grace, how sweet the sound
-That saved a wretch like me
-I once was lost, but now am found
-Was blind, but now I see
-
-'Twas grace that taught my heart to fear
-And grace my fears relieved
-How precious did that grace appear
-The hour I first believed`,
-    chords: `G    C    G    Em
-G    D    G    D
-G    C    G    Em  
-G    D    G`
-  },
-  {
-    id: 'how-great',
-    title: 'How Great Thou Art',
-    artist: 'Carl Boberg',
-    language: 'en',
-    genre: 'Hymn',
-    key: 'C',
-    tempo: 85,
-    difficulty: 'intermediate',
-    collections: ['worship'],
-    tags: ['praise', 'creation', 'worship'],
-    lyrics: `O Lord my God, when I in awesome wonder
-Consider all the worlds thy hands have made
-I see the stars, I hear the rolling thunder
-Thy power throughout the universe displayed
-
-Then sings my soul, my Savior God, to thee
-How great thou art, how great thou art
-Then sings my soul, my Savior God, to thee
-How great thou art, how great thou art`,
-    chords: `C    F    C    G
-C    F    G    C
-C    F    C    Am
-F    G    C`
-  },
-  {
-    id: 'awesome-god',
-    title: 'Awesome God',
-    artist: 'Rich Mullins',
-    language: 'en',
-    genre: 'Contemporary',
-    key: 'A',
-    tempo: 120,
-    difficulty: 'beginner',
-    collections: ['contemporary'],
-    tags: ['praise', 'contemporary', 'upbeat'],
-    lyrics: `Our God is an awesome God
-He reigns from heaven above
-With wisdom, power and love
-Our God is an awesome God
-
-Our God is an awesome God
-He reigns from heaven above
-With wisdom, power and love
-Our God is an awesome God`,
-    chords: `A    D    A    E
-A    D    E    A
-A    D    A    E
-A    D    E    A`
-  },
-  {
-    id: 'cornerstone',
-    title: 'Cornerstone',
-    artist: 'Hillsong',
-    language: 'en',
-    genre: 'Contemporary',
-    key: 'E',
-    tempo: 75,
-    difficulty: 'advanced',
-    collections: ['contemporary'],
-    tags: ['worship', 'jesus', 'foundation'],
-    lyrics: `My hope is built on nothing less
-Than Jesus' blood and righteousness
-I dare not trust the sweetest frame
-But wholly trust in Jesus' name
-
-Christ alone, cornerstone
-Weak made strong in the Savior's love
-Through the storm, He is Lord
-Lord of all`,
-    chords: `E    A    E    B
-E    A    B    E
-E    A    E    C#m
-A    B    E`
-  },
-  {
-    id: 'vande-mataram',
-    title: 'वंदे मातरम्',
-    artist: 'बंकिम चंद्र चट्टोपाध्याय',
-    language: 'hi',
-    genre: 'देशभक्ति गीत',
-    key: 'C',
-    tempo: 100,
-    difficulty: 'intermediate',
-    collections: ['worship'],
-    tags: ['देशभक्ति', 'राष्ट्रगान', 'पारंपरिक'],
-    lyrics: `वंदे मातरम्
-सुजलां सुफलां मलयजशीतलाम्
-शस्यश्यामलां मातरम्
-वंदे मातरम्
-
-शुभ्रज्योत्स्नापुलकितयामिनीम्
-फुल्लकुसुमितद्रुमदलशोभिनीम्
-सुहासिनीं सुमधुरभाषिणीम्
-सुखदां वरदां मातरम्
-वंदे मातरम्`,
-    chords: `C    F    C    G
-C    F    G    C
-C    F    C    Am
-F    G    C`
-  },
-  {
-    id: 'raghupati-raghav',
-    title: 'रघुपति राघव राजा राम',
-    artist: 'पारंपरिक',
-    language: 'hi',
-    genre: 'भजन',
-    key: 'D',
+    id: "hindi-1",
+    title: "Yesu Mera Raja",
+    artist: "Hindi Gospel Collective",
+    lyrics: `यीशु मेरा राजा है\nवह मेरा मुक्तिदाता है\nउसकी महिमा सदा रहे\nउसका प्रेम अमर रहे\n\nहर दिन मैं गाऊंगा\nउसकी स्तुति करूंगा\nयीशु मेरा प्रभु है\nवह मेरा सब कुछ है`,
+    chords: "G - D - Em - C - G - D - C - G",
+    key: "G",
     tempo: 110,
-    difficulty: 'beginner',
-    collections: ['worship'],
-    tags: ['भजन', 'राम', 'पारंपरिक'],
-    lyrics: `रघुपति राघव राजा राम
-पतित पावन सीता राम
-सीता राम सीता राम
-भज प्यारे तू सीता राम
-
-ईश्वर अल्लाह तेरो नाम
-सब को सन्मति दे भगवान
-सब को सन्मति दे भगवान
-रघुपति राघव राजा राम`,
-    chords: `D    G    D    A
-D    G    A    D
-D    G    D    Bm
-G    A    D`
+    genre: "Gospel",
+    language: "hi",
+    collections: ["worship"],
+    tags: ["praise", "worship", "jesus"],
+    difficulty: "beginner"
   },
   {
-    id: 'ganpati-bappa',
-    title: 'गणपति बप्पा मोरया',
-    artist: 'पारंपरिक',
-    language: 'mr',
-    genre: 'आरती',
-    key: 'E',
-    tempo: 130,
-    difficulty: 'beginner',
-    collections: ['worship'],
-    tags: ['गणेश', 'आरती', 'उत्सव'],
-    lyrics: `गणपति बप्पा मोरया
-मंगलमूर्ति मोरया
-गणपति बप्पा मोरया
-मोरया रे
-
-आपल्या घरी आला गं
-आनंदाची वाटाशी आला गं
-सकळ विघ्न हरता गं
-गणपति बप्पा मोरया`,
-    chords: `E    A    E    B
-E    A    B    E
-E    A    E    C#m
-A    B    E`
+    id: "hindi-2",
+    title: "Prabhu Ki Mahima",
+    artist: "Worship India",
+    lyrics: `प्रभु की महिमा हो\nउसका नाम महान है\nस्वर्ग और पृथ्वी पर\nउसकी स्तुति हो\n\nहलेलुयाह, हलेलुयाह\nप्रभु की जय हो\nहलेलुयाह, हलेलुयाह\nयीशु की विजय हो`,
+    chords: "C - G - Am - F - C - G - F - C",
+    key: "C",
+    tempo: 125,
+    genre: "Contemporary Gospel",
+    language: "hi",
+    collections: ["praise"],
+    tags: ["hallelujah", "victory", "praise"],
+    difficulty: "intermediate"
   },
   {
-    id: 'sahana-vavatu',
-    title: 'సహన వవతు',
-    artist: 'వేద మంత్రం',
-    language: 'te',
-    genre: 'శ్లోకం',
-    key: 'C',
+    id: "hindi-3",
+    title: "Dhanyawad Prabhu",
+    artist: "Hindi Worship Collective",
+    lyrics: `धन्यवाद प्रभु तेरा\nहर दिन नया है\nतेरी कृपा अद्भुत\nतेरा प्रेम अपार है\n\nहम गाते हैं तेरी स्तुति\nहम करते हैं तेरा धन्यवाद\nयीशु तू ही है सब कुछ\nहमारे जीवन का आधार\n\nहलेलुयाह, हलेलुयाह\nप्रभु की महिमा हो\nहलेलुयाह, हलेलुयाह\nयीशु का राज्य आए`,
+    chords: "D - G - A - Bm - D - G - A - D",
+    key: "D",
+    tempo: 100,
+    genre: "Contemporary Gospel",
+    language: "hi",
+    collections: ["thanksgiving", "worship"],
+    tags: ["gratitude", "praise", "thanksgiving"],
+    difficulty: "beginner"
+  },
+  {
+    id: "english-1",
+    title: "Amazing Grace",
+    artist: "Traditional Gospel",
+    lyrics: `Amazing grace, how sweet the sound\nThat saved a wretch like me\nI once was lost, but now am found\nWas blind, but now I see\n\n'Twas grace that taught my heart to fear\nAnd grace my fears relieved\nHow precious did that grace appear\nThe hour I first believed`,
+    chords: "G - G7 - C - G - Em - G - D - G",
+    key: "G",
     tempo: 80,
-    difficulty: 'intermediate',
-    collections: ['worship'],
-    tags: ['శాంతి', 'మంత్రం', 'వేదం'],
-    lyrics: `సహన వవతు
-సహనౌ భునక్తు
-సహ వీర్యం కరవావహై
-తేజస్వి నావధీతమస్తు
-మా విద్విషావహై
-
-ఓం శాంతి శాంతి శాంతిః
-సహన వవతు సహనౌ భునక్తు
-సహ వీర్యం కరవావహై
-మా విద్విషావహై`,
-    chords: `C    F    C    G
-C    F    G    C
-C    F    C    Am
-F    G    C`
+    genre: "Traditional Gospel",
+    language: "en",
+    collections: ["classic", "worship"],
+    tags: ["grace", "salvation", "traditional"],
+    difficulty: "beginner"
   },
   {
-    id: 'karagada-guruvina',
-    title: 'ಕರಗದ ಗುರುವಿನ',
-    artist: 'ಪುರಂದರ ದಾಸ',
-    language: 'kn',
-    genre: 'ಕೃತಿ',
-    key: 'D',
-    tempo: 95,
-    difficulty: 'intermediate',
-    collections: ['worship'],
-    tags: ['ಗುರು', 'ಭಕ್ತಿ', 'ಕರ್ನಾಟಕ ಸಂಗೀತ'],
-    lyrics: `ಕರಗದ ಗುರುವಿನ
-ಕಾಕ್ಷಿ ಇರುವವರೆಗೆ
-ಮರೆಯದು ಮನಸ್ಸಿನಲ್ಲಿ
-ಮಾಧವ ನಿನ್ನ ರೂಪ
-
-ಗುರುವಿನ ಮಾತು ಚೆನ್ನಾಗಿ
-ಗಾನ ಮಾಡುವವರಿಗೆ
-ಹರಿಯ ಕೃಪೆ ಸದಾ
-ಹೃದಯದಲ್ಲಿ ಇರುವುದು`,
-    chords: `D    G    D    A
-D    G    A    D
-D    G    D    Bm
-G    A    D`
-  },
-  {
-    id: 'suprabhatam',
-    title: 'श्री वेंकटेश सुप्रभातम्',
-    artist: 'श्री प्रतिवादी भयंकरम् अण्णा',
-    language: 'hi',
-    genre: 'स्तोत्र',
-    key: 'G',
-    tempo: 70,
-    difficulty: 'advanced',
-    collections: ['worship'],
-    tags: ['तिरुपति', 'वेंकटेश', 'सुप्रभात'],
-    lyrics: `कौसल्यासुप्रजाराम पूर्वसन्ध्या प्रवर्तते
-उत्तिष्ठ नरशार्दूल कर्तव्यं देव पूजनम्
-
-कौसल्यासुप्रजाराम पूर्वसन्ध्या प्रवर्तते
-उत्तिष्ठ नरशार्दूल कर्तव्यं देव पूजनम्
-
-वेंकटेश प्रभो वेंकटेश प्रभो
-वेंकटेश प्रभो वेंकटेश प्रभो`,
-    chords: `G    C    G    D
-G    C    D    G
-G    C    G    Em
-C    D    G`
-  },
-  {
-    id: 'vitthala-vitthala',
-    title: 'विठ्ठला विठ्ठला',
-    artist: 'संत तुकाराम',
-    language: 'mr',
-    genre: 'अभंग',
-    key: 'F',
-    tempo: 110,
-    difficulty: 'beginner',
-    collections: ['worship'],
-    tags: ['विठोबा', 'पंढरपूर', 'भक्ति'],
-    lyrics: `विठ्ठला विठ्ठला जय हरि विठ्ठला
-पांडुरंग हरि विठ्ठला
-जय जय राम कृष्ण हरि
-जय जय राम कृष्ण हरि
-
-माझे मन आहे पंढरीचे राजा
-विठोबा माझे प्राण विठोबा
-माझे मन आहे पंढरीचे राजा`,
-    chords: `F    Bb   F    C
-F    Bb   C    F
-F    Bb   F    Dm
-Bb   C    F`
-  },
-  {
-    id: 'namami-shamishan',
-    title: 'నమామి శమీశాన్',
-    artist: 'ఆదిశంకరాచార్య',
-    language: 'te',
-    genre: 'స్తోత్రం',
-    key: 'A',
-    tempo: 85,
-    difficulty: 'advanced',
-    collections: ['worship'],
-    tags: ['శివ', 'స్తోత్రం', 'భక్తి'],
-    lyrics: `నమామి శమీశాన్ నిర్వాణరూపం
-విభుం వ్యాపకం బ్రహ్మవేదస్వరూపం
-నిజం నిర్గుణం నిర్వికల్పం నిరీహం
-చిదాకాశమాకాశవాసం భజేఽహం
-
-నిరాకారమోంకారమూలం తురీయం
-గిరా జ్ఞాన గోతీతమీశం గిరీశం
-కరాలం మహాకాల కాలం కృపాలం
-గుణాగార సంసారపారం నతోఽహం`,
-    chords: `A    D    A    E
-A    D    E    A
-A    D    A    F#m
-D    E    A`
-  },
-  {
-    id: 'hari-om-tatsat',
-    title: 'हरि ॐ तत्सत्',
-    artist: 'पारंपरिक',
-    language: 'hi',
-    genre: 'मंत्र',
-    key: 'C',
-    tempo: 60,
-    difficulty: 'beginner',
-    collections: ['worship'],
-    tags: ['मंत्र', 'ध्यान', 'शांति'],
-    lyrics: `हरि ॐ तत्सत्
-हरि ॐ तत्सत्
-सच्चिदानंद रूप
-हरि ॐ तत्सत्
-
-ॐ शांति शांति शांति
-ॐ शांति शांति शांति
-हरि ॐ तत्सत्`,
-    chords: `C    F    C    G
-C    F    G    C
-C    F    C    Am
-F    G    C`
-  },
-  {
-    id: 'govinda-ala-re',
-    title: 'गोविंदा आला रे',
-    artist: 'पारंपरिक',
-    language: 'mr',
-    genre: 'भजन',
-    key: 'B',
+    id: "english-2",
+    title: "How Great Is Our God",
+    artist: "Contemporary Worship",
+    lyrics: `The splendor of the King\nClothed in majesty\nLet all the earth rejoice\nAll the earth rejoice\n\nHe wraps Himself in light\nAnd darkness tries to hide\nAnd trembles at His voice\nTrembles at His voice\n\nHow great is our God\nSing with me\nHow great is our God\nAnd all will see\nHow great, how great is our God`,
+    chords: "G - Em - C - D - G - Em - C - D",
+    key: "G",
     tempo: 140,
-    difficulty: 'beginner',
-    collections: ['contemporary'],
-    tags: ['कृष्ण', 'उत्सव', 'दही हांडी'],
-    lyrics: `गोविंदा आला रे आला
-गोपाल आला रे आला
-माखन चोरा आला रे
-गोकुळचा राजा आला रे
-
-देव रे देवकी नंदना
-आला रे आला गोविंदा
-यशोदा ने लाल आला रे
-वृंदावनचा राजा आला रे`,
-    chords: `B    E    B    F#
-B    E    F#   B
-B    E    B    G#m
-E    F#   B`
+    genre: "Contemporary Gospel",
+    language: "en",
+    collections: ["modern", "worship"],
+    tags: ["praise", "majesty", "contemporary"],
+    difficulty: "intermediate"
   },
   {
-    id: 'jagadananda-karaka',
-    title: 'ಜಗದಾನಂದ ಕಾರಕ',
-    artist: 'ಪುರಂದರ ದಾಸ',
-    language: 'kn',
-    genre: 'ಕೃತಿ',
-    key: 'E',
-    tempo: 100,
-    difficulty: 'intermediate',
-    collections: ['worship'],
-    tags: ['ಕೃಷ್ಣ', 'ಭಕ್ತಿ', 'ಕರ್ನಾಟಕ ಸಂಗೀತ'],
-    lyrics: `ಜಗದಾನಂದ ಕಾರಕ
-ಜಯ ಜಗದೀಶ ಹರೇ
-ಶ್ರೀ ಪುರಂದರ ವಿಠಲ
-ಪ್ರಾಣನಾಥ ಹರೇ
-
-ಬೇಗನೆ ಬಾರೋ ರಂಗ
-ಬಿದುವ ಬಾಗಿಲಲ್ಲಿ
-ತೋಗಿ ತೋರಿಸೋ ದರ್ಶನ
-ತುಮ್ಮಿ ತುಮ್ಮಿ ಹರೇ`,
-    chords: `E    A    E    B
-E    A    B    E
-E    A    E    C#m
-A    B    E`
+    id: "english-3",
+    title: "Blessed Be Your Name",
+    artist: "Worship Team",
+    lyrics: `Blessed be Your name\nIn the land that is plentiful\nWhere Your streams of abundance flow\nBlessed be Your name\n\nBlessed be Your name\nWhen I'm found in the desert place\nThough I walk through the wilderness\nBlessed be Your name\n\nEvery blessing You pour out I'll\nTurn back to praise\nWhen the darkness closes in Lord\nStill I will say\n\nBlessed be the name of the Lord\nBlessed be Your name`,
+    chords: "A - E - F#m - D - A - E - D - A",
+    key: "A",
+    tempo: 130,
+    genre: "Contemporary Gospel",
+    language: "en",
+    collections: ["worship", "modern"],
+    tags: ["blessing", "praise", "faith"],
+    difficulty: "intermediate"
+  },
+  {
+    id: "english-4",
+    title: "10,000 Reasons",
+    artist: "Matt Redman",
+    lyrics: `Bless the Lord O my soul\nO my soul\nWorship His holy name\nSing like never before\nO my soul\nI'll worship Your holy name\n\nThe sun comes up, it's a new day dawning\nIt's time to sing Your song again\nWhatever may pass, and whatever lies before me\nLet me be singing when the evening comes`,
+    chords: "G - D - Em - C - G - D - C - G",
+    key: "G",
+    tempo: 75,
+    genre: "Contemporary Gospel",
+    language: "en",
+    collections: ["worship", "modern"],
+    tags: ["blessing", "praise", "worship"],
+    difficulty: "intermediate"
+  },
+  {
+    id: "english-5",
+    title: "Way Maker",
+    artist: "Sinach",
+    lyrics: `You are here, moving in our midst\nI worship You, I worship You\nYou are here, working in this place\nI worship You, I worship You\n\nYou are way maker, miracle worker\nPromise keeper, light in the darkness\nMy God, that is who You are\nWay maker, miracle worker\nPromise keeper, light in the darkness\nMy God, that is who You are`,
+    chords: "C - G - Am - F - C - G - F - C",
+    key: "C",
+    tempo: 85,
+    genre: "Contemporary Gospel",
+    language: "en",
+    collections: ["worship", "modern"],
+    tags: ["miracle", "promise", "light"],
+    difficulty: "beginner"
+  },
+  {
+    id: "telugu-1",
+    title: "Yesu Naa Rakshakudu",
+    artist: "Telugu Gospel Band",
+    lyrics: `యేసు నా రక్షకుడు\nవాడే నా దేవుడు\nవాడి ప్రేమ అపారం\nవాడి కృప గొప్పది\n\nహల్లెలూయా, హల్లెలూయా\nయేసు రాజు\nహల్లెలూయా, హల్లెలూయా\nవాడే విజేత`,
+    chords: "D - A - Bm - G - D - A - G - D",
+    key: "D",
+    tempo: 115,
+    genre: "Telugu Gospel",
+    language: "te",
+    collections: ["worship"],
+    tags: ["salvation", "praise", "telugu"],
+    difficulty: "beginner"
+  },
+  {
+    id: "telugu-2",
+    title: "Divya Prema",
+    artist: "Andhra Gospel Singers",
+    lyrics: `దివ్య ప్రేమ అద్భుతం\nయేసు ప్రేమ శాశ్వతం\nమన హృదయాల్లో\nవాడు వసించాడు\n\nస్తుతి, స్తుతి, యేసుకు\nమహిమ, మహిమ, వాడికే\nస్తుతి, స్తుతి, యేసుకు\nవాడే మన రక్షకుడు`,
+    chords: "G - C - D - Em - G - C - D - G",
+    key: "G",
+    tempo: 105,
+    genre: "Telugu Gospel",
+    language: "te",
+    collections: ["praise"],
+    tags: ["love", "divine", "worship"],
+    difficulty: "intermediate"
+  },
+  {
+    id: "telugu-3",
+    title: "Krupalo Yesu",
+    artist: "Telugu Worship",
+    lyrics: `కృపలో యేసు\nప్రేమలో యేసు\nసర్వదా మాతో\nఉండే దేవుడు\n\nవాడే మార్గం\nవాడే సత్యం\nవాడే జీవం\nయేసు క్రీస్తు\n\nహల్లెలూయా ప్రభువుకు\nహల్లెలూయా రాజుకు\nహల్లెలూయా యేసుకు\nవాడే మన దేవుడు`,
+    chords: "C - F - G - Am - C - F - G - C",
+    key: "C",
+    tempo: 120,
+    genre: "Telugu Gospel",
+    language: "te",
+    collections: ["worship", "praise"],
+    tags: ["grace", "truth", "life"],
+    difficulty: "beginner"
+  },
+  {
+    id: "telugu-4",
+    title: "Stuthi Mahima",
+    artist: "Telugu Gospel United",
+    lyrics: `స్తుతి మహిమ యేసుకు\nవాడే మన రాజు\nవాడి నామంలో శక్తి\nవాడి వాక్యంలో జీవం\n\nఅల్లెలూయా, అల్లెలూయా\nయేసు జీవించాడు\nఅల్లెలూయా, అల్లెలూయా\nవాడే విజేత\n\nమన పాపాలకు మరణించి\nమనకు జీవం ఇచ్చాడు\nస్తుతి, స్తుతి, యేసుకు\nవాడే మన త్రాణకర్త`,
+    chords: "A - D - E - F#m - A - D - E - A",
+    key: "A",
+    tempo: 135,
+    genre: "Telugu Gospel",
+    language: "te",
+    collections: ["praise", "resurrection"],
+    tags: ["glory", "victory", "resurrection"],
+    difficulty: "intermediate"
+  },
+  {
+    id: "marathi-1",
+    title: "Yesu Majha Taaranhaar",
+    artist: "Marathi Gospel Group",
+    lyrics: `येसू माझा तारणहार\nतो माझा रक्षक आहे\nत्याचे प्रेम अपार आहे\nत्याची कृपा महान आहे\n\nहल्लेलुया, हल्लेलुया\nयेसूची स्तुती करा\nहल्लेलुया, हल्लेलुया\nत्याला गौरव द्या`,
+    chords: "G - D - Em - C - G - D - C - G",
+    key: "G",
+    tempo: 110,
+    genre: "Marathi Gospel",
+    language: "mr",
+    collections: ["worship"],
+    tags: ["savior", "praise", "marathi"],
+    difficulty: "beginner"
+  },
+  {
+    id: "marathi-2",
+    title: "Prabhu Tuzhya Naam",
+    artist: "Maharashtra Gospel",
+    lyrics: `प्रभु तुझ्या नामात\nशक्ती आहे\nतुझ्या प्रेमात\nमुक्ती आहे\n\nयेसू, येसू\nतूच आमचा राजा\nयेसू, येसू\nतूच आमचा मित्र\n\nस्तुती तुला, गौरव तुला\nयेसू आमच्या हृदयात\nस्तुती तुला, गौरव तुला\nसदैव तू आमच्या साथ`,
+    chords: "D - A - Bm - G - D - A - G - D",
+    key: "D",
+    tempo: 125,
+    genre: "Marathi Gospel",
+    language: "mr",
+    collections: ["praise"],
+    tags: ["power", "love", "freedom"],
+    difficulty: "intermediate"
+  },
+  {
+    id: "marathi-3",
+    title: "Divya Aashirwad",
+    artist: "Marathi Worship Team",
+    lyrics: `दिव्य आशीर्वाद तुझा\nआम्हावर ओतत राहो\nतुझी कृपा अपार\nआम्हावर वर्षत राहो\n\nयेसू तूच आमचा प्रभु\nतूच आमचा गुरु\nआम्ही तुझी स्तुती करतो\nसदैव तुझं गुणगान`,
+    chords: "C - G - Am - F - C - G - F - C",
+    key: "C",
+    tempo: 95,
+    genre: "Marathi Gospel",
+    language: "mr",
+    collections: ["worship", "blessing"],
+    tags: ["blessing", "grace", "worship"],
+    difficulty: "beginner"
+  },
+  {
+    id: "marathi-4",
+    title: "Anand Geet",
+    artist: "Maharashtra Gospel Choir",
+    lyrics: `आनंद गीत गाऊया\nयेसूच्या नावाने\nतो आमचा राजा आहे\nत्याच्या प्रेमाने\n\nहल्लेलुया गाऊया\nप्रभुची स्तुती करूया\nत्याचे नाम पवित्र आहे\nसदैव त्याची वंदना करूया\n\nयेसू आमचा मित्र\nयेसू आमचा गुरु\nआम्ही त्याचे आहोत\nतो आमचा प्रभु`,
+    chords: "G - C - D - Em - G - C - D - G",
+    key: "G",
+    tempo: 140,
+    genre: "Marathi Gospel",
+    language: "mr",
+    collections: ["joy", "praise"],
+    tags: ["joy", "celebration", "worship"],
+    difficulty: "beginner"
+  },
+  {
+    id: "kannada-1",
+    title: "Yesu Nanna Rakshaka",
+    artist: "Kannada Gospel Singers",
+    lyrics: `ಯೇಸು ನನ್ನ ರಕ್ಷಕ\nಆತ ನನ್ನ ದೇವ\nಆತನ ಪ್ರೀತಿ ಅಪಾರ\nಆತನ ಕೃಪೆ ಮಹಾನ್\n\nಹಲ್ಲೆಲೂಯಾ, ಹಲ್ಲೆಲೂಯಾ\nಯೇಸು ರಾಜ\nಹಲ್ಲೆಲೂಯಾ, ಹಲ್ಲೆಲೂಯಾ\nಆತನೇ ವಿಜೇತ`,
+    chords: "G - C - D - Em - G - C - D - G",
+    key: "G",
+    tempo: 115,
+    genre: "Kannada Gospel",
+    language: "kn",
+    collections: ["worship"],
+    tags: ["savior", "praise", "kannada"],
+    difficulty: "beginner"
+  },
+  {
+    id: "kannada-2",
+    title: "Paavana Prema",
+    artist: "Karnataka Gospel Band",
+    lyrics: `ಪಾವನ ಪ್ರೇಮ ಅದ್ಭುತ\nಯೇಸು ಪ್ರೇಮ ಶಾಶ್ವತ\nನಮ್ಮ ಹೃದಯದಲ್ಲಿ\nಆತ ವಾಸಿಸುತ್ತಾನೆ\n\nಸ್ತುತಿ, ಸ್ತುತಿ ಯೇಸುವಿಗೆ\nಮಹಿಮೆ, ಮಹಿಮೆ ಆತನಿಗೆ\nಸ್ತುತಿ, ಸ್ತುತಿ ಯೇಸುವಿಗೆ\nಆತನೇ ನಮ್ಮ ರಕ್ಷಕ`,
+    chords: "D - A - Bm - G - D - A - G - D",
+    key: "D",
+    tempo: 105,
+    genre: "Kannada Gospel",
+    language: "kn",
+    collections: ["praise"],
+    tags: ["holy", "love", "eternal"],
+    difficulty: "intermediate"
+  },
+  {
+    id: "kannada-3",
+    title: "Kripeyalli Yesu",
+    artist: "Kannada Worship",
+    lyrics: `ಕೃಪೆಯಲ್ಲಿ ಯೇಸು\nಪ್ರೀತಿಯಲ್ಲಿ ಯೇಸು\nಸರ್ವದಾ ನಮ್ಮೊಂದಿಗೆ\nಇರುವ ದೇವ\n\nಆತನೇ ಮಾರ್ಗ\nಆತನೇ ಸತ್ಯ\nಆತನೇ ಜೀವನ\nಯೇಸು ಕ್ರಿಸ್ತ\n\nಹಲ್ಲೆಲೂಯಾ ಪ್ರಭುವಿಗೆ\nಹಲ್ಲೆಲೂಯಾ ರಾಜನಿಗೆ\nಹಲ್ಲೆಲೂಯಾ ಯೇಸುವಿಗೆ\nಆತನೇ ನಮ್ಮ ದೇವ`,
+    chords: "C - F - G - Am - C - F - G - C",
+    key: "C",
+    tempo: 120,
+    genre: "Kannada Gospel",
+    language: "kn",
+    collections: ["worship", "praise"],
+    tags: ["grace", "way", "truth"],
+    difficulty: "beginner"
+  },
+  {
+    id: "kannada-4",
+    title: "Divya Karunege",
+    artist: "Karnataka Gospel United",
+    lyrics: `ದಿವ್ಯ ಕರುಣೆಗೆ ಸ್ತುತಿ\nಯೇಸುವಿನ ಪ್ರೀತಿಗೆ ಸ್ತುತಿ\nಆತನ ಬಲಿದಾನಕ್ಕೆ\nನಮ್ಮ ಆತ್ಮದ ಸ್ತುತಿ\n\nಹಲ್ಲೆಲೂಯಾ, ಹಲ್ಲೆಲೂಯಾ\nಆತನೇ ನಮ್ಮ ತ್ರಾಣ\nಹಲ್ಲೆಲೂಯಾ, ಹಲ್ಲೆಲೂಯಾ\nಯೇಸು ನಮ್ಮ ಜೀವ`,
+    chords: "E - A - E - B - E - A - B - E",
+    key: "E",
+    tempo: 110,
+    genre: "Kannada Gospel",
+    language: "kn",
+    collections: ["praise", "thanksgiving"],
+    tags: ["mercy", "sacrifice", "salvation"],
+    difficulty: "intermediate"
   }
 ];
