@@ -11,6 +11,7 @@ import { useToast } from '@/hooks/use-toast';
 import { languages } from '@/data/songs';
 import { SongLanguageVersion, LanguageCode } from '@/types/song';
 import { DocumentScanner } from '@/components/DocumentScanner';
+import Sanscript from '@indic-transliteration/sanscript';
 
 interface LanguageVersionEditorProps {
   languageVersions: { [key: string]: SongLanguageVersion };
@@ -90,23 +91,47 @@ export const LanguageVersionEditor = ({
   };
 
   const transliterateText = async (text: string, targetLang: LanguageCode): Promise<string> => {
-    // Simple transliteration - convert to target script while preserving pronunciation
-    // For demo purposes, this is a basic implementation
     try {
-      // For Indian languages, we'll use a simple character mapping approach
-      // In a real app, you'd use a proper transliteration library
-      const charMappings: { [key: string]: { [char: string]: string } } = {
-        'hi': { // Hindi (Devanagari)
-          'a': 'अ', 'e': 'ए', 'i': 'इ', 'o': 'ओ', 'u': 'उ',
-          'k': 'क', 'g': 'ग', 'ch': 'च', 'j': 'ज', 't': 'त', 'd': 'द',
-          'n': 'न', 'p': 'प', 'b': 'ब', 'm': 'म', 'y': 'य', 'r': 'र',
-          'l': 'ल', 'v': 'व', 's': 'स', 'h': 'ह'
-        }
+      // Map language codes to Sanscript schemes
+      const schemeMap: { [key: string]: string } = {
+        'hi': 'devanagari',
+        'te': 'telugu', 
+        'mr': 'devanagari',
+        'kn': 'kannada',
+        'en': 'iast' // International Alphabet of Sanskrit Transliteration (Latin-based)
       };
+
+      const targetScheme = schemeMap[targetLang];
+      if (!targetScheme) {
+        console.warn(`No transliteration scheme found for language: ${targetLang}`);
+        return text;
+      }
+
+      // Detect source script - assume English/Latin if not in Indian languages
+      let sourceScheme = 'iast'; // Default to Latin-based input
       
-      // Simple fallback: just return the original text for now
-      // In production, use a proper transliteration API or library
-      return text;
+      // Check if text contains Devanagari characters
+      if (/[\u0900-\u097F]/.test(text)) {
+        sourceScheme = 'devanagari';
+      }
+      // Check if text contains Telugu characters
+      else if (/[\u0C00-\u0C7F]/.test(text)) {
+        sourceScheme = 'telugu';
+      }
+      // Check if text contains Kannada characters
+      else if (/[\u0C80-\u0CFF]/.test(text)) {
+        sourceScheme = 'kannada';
+      }
+
+      // If source and target schemes are the same, return original text
+      if (sourceScheme === targetScheme) {
+        return text;
+      }
+
+      // Perform transliteration using Sanscript
+      const transliteratedText = Sanscript.t(text, sourceScheme, targetScheme);
+      return transliteratedText || text;
+      
     } catch (error) {
       console.error('Transliteration error:', error);
       return text; // Return original text if transliteration fails
