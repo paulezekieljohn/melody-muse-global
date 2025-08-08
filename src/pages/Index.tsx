@@ -54,6 +54,7 @@ const Index = () => {
         title: song.title,
         artist: song.artist,
         language: song.language as LanguageCode,
+        category: 'hymns' as any,
         genre: song.genre || undefined,
         key: song.key || undefined,
         tempo: song.tempo || undefined,

@@ -15,6 +15,7 @@ export interface Song {
   tempo?: number;
   genre?: string;
   language: LanguageCode;
+  category: SongCategory;
   collections: string[];
   tags: string[];
   difficulty?: 'beginner' | 'intermediate' | 'advanced';
@@ -31,7 +32,15 @@ export interface Collection {
   color: string;
 }
 
+export type SongCategory = 'hymns' | 'psalms' | 'praise-worship';
 export type LanguageCode = 'hi' | 'en' | 'te' | 'mr' | 'kn';
+
+export interface CategoryData {
+  id: SongCategory;
+  name: string;
+  description: string;
+  icon: string;
+}
 
 export interface Language {
   code: LanguageCode;
