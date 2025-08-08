@@ -7,7 +7,7 @@ import { Switch } from '@/components/ui/switch';
 import { Label } from '@/components/ui/label';
 import { Separator } from '@/components/ui/separator';
 import { Settings as SettingsIcon, Sun, Moon, Globe, ArrowLeft, Palette } from 'lucide-react';
-import { languages } from '@/data/songs';
+import { languages } from '@/data/gospelSongs';
 import { LanguageCode } from '@/types/song';
 import { Link } from 'react-router-dom';
 import { useToast } from '@/hooks/use-toast';
@@ -122,7 +122,6 @@ const Settings = () => {
                       className="p-4 h-auto flex items-center gap-3 justify-start"
                       onClick={() => handleLanguageChange(language.code)}
                     >
-                      <span className="text-2xl">{language.flag}</span>
                       <div className="text-left">
                         <div className="font-medium">{language.name}</div>
                         <div className="text-xs opacity-80 uppercase">

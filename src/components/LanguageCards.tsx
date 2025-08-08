@@ -28,7 +28,6 @@ export const LanguageCards = ({ category, onLanguageSelect, songs }: LanguageCar
           >
             <CardHeader className="text-center pb-2">
               <CardTitle className="flex flex-col items-center gap-2">
-                <span className="text-4xl">{language.flag}</span>
                 <span className="text-lg">{language.name}</span>
               </CardTitle>
             </CardHeader>

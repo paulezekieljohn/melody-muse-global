@@ -1,6 +1,6 @@
 import React, { createContext, useContext, useState, useEffect, ReactNode } from 'react';
 import { LanguageCode } from '@/types/song';
-import { languages } from '@/data/songs';
+import { languages } from '@/data/gospelSongs';
 
 interface AppLanguageContextType {
   appLanguage: LanguageCode;
