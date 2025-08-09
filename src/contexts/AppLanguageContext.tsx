@@ -28,7 +28,15 @@ const translations: Record<LanguageCode, Record<string, string>> = {
     'settings.darkMode': 'Dark Mode',
     'settings.appLanguage': 'App Language',
     'toast.languageUpdated': 'Language Updated',
-    'toast.themeUpdated': 'Theme Updated'
+    'toast.themeUpdated': 'Theme Updated',
+    'category.hymns': 'Hymns',
+    'category.psalms': 'Psalms',
+    'category.praise': 'Praise',
+    'category.worship': 'Worship',
+    'category.hymns.description': 'Traditional Christian hymns',
+    'category.psalms.description': 'Biblical psalms set to music',
+    'category.praise.description': 'Praise songs and choruses',
+    'category.worship.description': 'Worship and devotional songs'
   },
   hi: {
     'app.title': 'गॉस्पल गीत संग्रह',
@@ -46,7 +54,15 @@ const translations: Record<LanguageCode, Record<string, string>> = {
     'settings.darkMode': 'डार्क मोड',
     'settings.appLanguage': 'ऐप भाषा',
     'toast.languageUpdated': 'भाषा अपडेट हुई',
-    'toast.themeUpdated': 'थीम अपडेट हुई'
+    'toast.themeUpdated': 'थीम अपडेट हुई',
+    'category.hymns': 'भजन',
+    'category.psalms': 'स्तुति गीत',
+    'category.praise': 'प्रशंसा',
+    'category.worship': 'आराधना',
+    'category.hymns.description': 'पारंपरिक ईसाई भजन',
+    'category.psalms.description': 'संगीत के साथ बाइबिल के स्तुति गीत',
+    'category.praise.description': 'प्रशंसा गीत और कोरस',
+    'category.worship.description': 'आराधना और भक्ति गीत'
   },
   mr: {
     'app.title': 'गॉस्पेल गीत संग्रह',
@@ -64,7 +80,15 @@ const translations: Record<LanguageCode, Record<string, string>> = {
     'settings.darkMode': 'डार्क मोड',
     'settings.appLanguage': 'अॅप भाषा',
     'toast.languageUpdated': 'भाषा अद्यतनित केली',
-    'toast.themeUpdated': 'थीम अद्यतनित केली'
+    'toast.themeUpdated': 'थीम अद्यतनित केली',
+    'category.hymns': 'स्तुति गीत',
+    'category.psalms': 'स्तोत्र',
+    'category.praise': 'स्तुति',
+    'category.worship': 'उपासना',
+    'category.hymns.description': 'पारंपरिक ख्रिश्चन स्तुति गीत',
+    'category.psalms.description': 'संगीतासह बायबलमधील स्तोत्र',
+    'category.praise.description': 'स्तुति गीते आणि कोरस',
+    'category.worship.description': 'उपासना आणि भक्ती गीते'
   },
   te: {
     'app.title': 'గాస్పెల్ పాట సంకలనం',
@@ -82,7 +106,15 @@ const translations: Record<LanguageCode, Record<string, string>> = {
     'settings.darkMode': 'డార్క్ మోడ్',
     'settings.appLanguage': 'యాప్ భాష',
     'toast.languageUpdated': 'భాష నవీకరించబడింది',
-    'toast.themeUpdated': 'థీమ్ నవీకరించబడింది'
+    'toast.themeUpdated': 'థీమ్ నవీకరించబడింది',
+    'category.hymns': 'స్తోత్రలు',
+    'category.psalms': 'కీర్తనలు',
+    'category.praise': 'స్తుతి',
+    'category.worship': 'ఆరాధన',
+    'category.hymns.description': 'సాంప్రదాయ క్రైస్తవ స్తోత్రలు',
+    'category.psalms.description': 'సంగీతంతో బైబిల్ కీర్తనలు',
+    'category.praise.description': 'స్తుతి పాటలు మరియు కోరస్',
+    'category.worship.description': 'ఆరాధన మరియు భక్తి పాటలు'
   },
   kn: {
     'app.title': 'ಗಾಸ್ಪೆಲ್ ಹಾಡುಗಳ ಸಂಗ್ರಹ',
@@ -100,7 +132,15 @@ const translations: Record<LanguageCode, Record<string, string>> = {
     'settings.darkMode': 'ಡಾರ್ಕ್ ಮೋಡ್',
     'settings.appLanguage': 'ಅಪ್ಲಿಕೇಶನ್ ಭಾಷೆ',
     'toast.languageUpdated': 'ಭಾಷೆ ನವೀಕರಿಸಲಾಗಿದೆ',
-    'toast.themeUpdated': 'ಥೀಮ್ ನವೀಕರಿಸಲಾಗಿದೆ'
+    'toast.themeUpdated': 'ಥೀಮ್ ನವೀಕರಿಸಲಾಗಿದೆ',
+    'category.hymns': 'ಸ್ತೋತ್ರಗಳು',
+    'category.psalms': 'ಕೀರ್ತನೆಗಳು',
+    'category.praise': 'ಸ್ತುತಿ',
+    'category.worship': 'ಆರಾಧನೆ',
+    'category.hymns.description': 'ಸಾಂಪ್ರದಾಯಿಕ ಕ್ರೈಸ್ತವ ಸ್ತೋತ್ರಗಳು',
+    'category.psalms.description': 'ಸಂಗೀತದೊಂದಿಗೆ ಬೈಬಲ್ ಕೀರ್ತನೆಗಳು',
+    'category.praise.description': 'ಸ್ತುತಿ ಹಾಡುಗಳು ಮತ್ತು ಕೋರಸ್',
+    'category.worship.description': 'ಆರಾಧನೆ ಮತ್ತು ಭಕ್ತಿ ಹಾಡುಗಳು'
   }
 };
 

@@ -32,7 +32,7 @@ export interface Collection {
   color: string;
 }
 
-export type SongCategory = 'hymns' | 'psalms' | 'praise-worship';
+export type SongCategory = 'hymns' | 'psalms' | 'praise' | 'worship';
 export type LanguageCode = 'hi' | 'en' | 'te' | 'mr' | 'kn';
 
 export interface CategoryData {

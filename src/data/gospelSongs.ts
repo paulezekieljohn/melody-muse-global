@@ -95,7 +95,7 @@ export const gospelSongs: Song[] = [
     tempo: 140,
     genre: "Contemporary Worship",
     language: "en",
-    category: "praise-worship",
+    category: "praise",
     collections: [],
     tags: ["praise", "majesty", "contemporary"],
     difficulty: "intermediate"
@@ -110,7 +110,7 @@ export const gospelSongs: Song[] = [
     tempo: 130,
     genre: "Contemporary Worship",
     language: "en",
-    category: "praise-worship",
+    category: "worship",
     collections: [],
     tags: ["blessing", "praise", "faith"],
     difficulty: "intermediate"
@@ -157,7 +157,7 @@ export const gospelSongs: Song[] = [
     tempo: 125,
     genre: "Hindi Contemporary",
     language: "hi",
-    category: "praise-worship",
+    category: "praise",
     collections: [],
     tags: ["महिमा", "स्तुति", "हलेलुयाह"],
     difficulty: "intermediate"
@@ -204,7 +204,7 @@ export const gospelSongs: Song[] = [
     tempo: 125,
     genre: "Marathi Contemporary",
     language: "mr",
-    category: "praise-worship",
+    category: "praise",
     collections: [],
     tags: ["शक्ती", "प्रेम", "मुक्ती"],
     difficulty: "intermediate"
@@ -251,7 +251,7 @@ export const gospelSongs: Song[] = [
     tempo: 105,
     genre: "Kannada Contemporary",
     language: "kn",
-    category: "praise-worship",
+    category: "worship",
     collections: [],
     tags: ["ಪ್ರೇಮ", "ಸ್ತುತಿ", "ಮಹಿಮೆ"],
     difficulty: "intermediate"
@@ -298,7 +298,7 @@ export const gospelSongs: Song[] = [
     tempo: 105,
     genre: "Telugu Contemporary",
     language: "te",
-    category: "praise-worship",
+    category: "worship",
     collections: [],
     tags: ["ప్రేమ", "స్తుతి", "మహిమ"],
     difficulty: "intermediate"

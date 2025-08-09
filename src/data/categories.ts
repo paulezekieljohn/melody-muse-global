@@ -14,9 +14,15 @@ export const categories: CategoryData[] = [
     icon: '🎵'
   },
   {
-    id: 'praise-worship',
-    name: 'Praise & Worship',
-    description: 'Contemporary praise and worship songs',
+    id: 'praise',
+    name: 'Praise',
+    description: 'Praise songs and choruses',
+    icon: '🎶'
+  },
+  {
+    id: 'worship',
+    name: 'Worship',
+    description: 'Worship and devotional songs',
     icon: '🙏'
   }
 ];
