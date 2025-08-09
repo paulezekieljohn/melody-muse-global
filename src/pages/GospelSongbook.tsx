@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Music, Settings } from 'lucide-react';
+import { Music, Settings, Shield } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { CategoryTabs } from '@/components/CategoryTabs';
 import { SongList } from '@/components/SongList';
@@ -7,6 +7,7 @@ import { SongViewer } from '@/components/SongViewer';
 import { Song, SongCategory, LanguageCode } from '@/types/song';
 import { gospelSongs } from '@/data/gospelSongs';
 import { Link } from 'react-router-dom';
+import { useAppLanguage } from '@/contexts/AppLanguageContext';
 
 type ViewState = 'categories' | 'songs' | 'viewer';
 
@@ -19,6 +20,7 @@ interface ViewData {
 const GospelSongbook = () => {
   const [viewState, setViewState] = useState<ViewState>('categories');
   const [viewData, setViewData] = useState<ViewData>({});
+  const { getTranslation } = useAppLanguage();
 
   const handleLanguageSelect = (category: SongCategory, language: LanguageCode) => {
     setViewData({ category, language });
@@ -53,22 +55,28 @@ const GospelSongbook = () => {
             <div className="flex items-center gap-3">
               <Music className="h-8 sm:h-10 w-8 sm:w-10 text-primary" />
               <h1 className="text-2xl sm:text-4xl font-bold bg-gradient-to-r from-primary to-purple-600 bg-clip-text text-transparent">
-                Gospel Songbook
+                {getTranslation('app.title')}
               </h1>
             </div>
             
-            {/* Settings */}
-            <div className="sm:absolute sm:right-0">
+            {/* Settings and Admin */}
+            <div className="sm:absolute sm:right-0 flex gap-2">
+              <Link to="/admin">
+                <Button variant="outline" size="sm">
+                  <Shield className="h-4 w-4 mr-2" />
+                  Admin
+                </Button>
+              </Link>
               <Link to="/settings">
                 <Button variant="outline" size="sm">
                   <Settings className="h-4 w-4 mr-2" />
-                  Settings
+                  {getTranslation('nav.settings')}
                 </Button>
               </Link>
             </div>
           </div>
           <p className="text-lg sm:text-xl text-muted-foreground">
-            Multi-language Christian hymns, psalms, and worship songs
+            {getTranslation('app.description')}
           </p>
         </div>
 

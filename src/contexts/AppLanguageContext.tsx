@@ -13,8 +13,8 @@ const AppLanguageContext = createContext<AppLanguageContextType | undefined>(und
 // Basic translations for the app interface
 const translations: Record<LanguageCode, Record<string, string>> = {
   en: {
-    'app.title': 'Melody Muse',
-    'app.description': 'Your personal songbook collection',
+    'app.title': 'Gospel Songbook',
+    'app.description': 'Multi-language Christian hymns, psalms, and worship songs',
     'nav.songs': 'Songs',
     'nav.settings': 'Settings',
     'nav.admin': 'Admin',
@@ -31,8 +31,8 @@ const translations: Record<LanguageCode, Record<string, string>> = {
     'toast.themeUpdated': 'Theme Updated'
   },
   hi: {
-    'app.title': 'मेलोडी म्यूज़',
-    'app.description': 'आपका व्यक्तिगत गीत संग्रह',
+    'app.title': 'गॉस्पल गीत संग्रह',
+    'app.description': 'बहुभाषीय ईसाई भजन, स्तुति और आराधना गीत',
     'nav.songs': 'गाने',
     'nav.settings': 'सेटिंग्स',
     'nav.admin': 'एडमिन',
@@ -49,8 +49,8 @@ const translations: Record<LanguageCode, Record<string, string>> = {
     'toast.themeUpdated': 'थीम अपडेट हुई'
   },
   mr: {
-    'app.title': 'मेलोडी म्यूझ',
-    'app.description': 'तुमचा वैयक्तिक गीत संग्रह',
+    'app.title': 'गॉस्पेल गीत संग्रह',
+    'app.description': 'बहुभाषीय ख्रिश्चन स्तुति, भजन आणि उपासना गीते',
     'nav.songs': 'गाणी',
     'nav.settings': 'सेटिंग्ज',
     'nav.admin': 'अॅडमिन',
@@ -67,8 +67,8 @@ const translations: Record<LanguageCode, Record<string, string>> = {
     'toast.themeUpdated': 'थीम अद्यतनित केली'
   },
   te: {
-    'app.title': 'మెలోడీ మ్యూజ్',
-    'app.description': 'మీ వ్యక్తిగత పాట సేకరణ',
+    'app.title': 'గాస్పెల్ పాట సంకలనం',
+    'app.description': 'బహుభాషా క్రైస్తవ భజనలు, కీర్తనలు మరియు ఆరాధన పాటలు',
     'nav.songs': 'పాటలు',
     'nav.settings': 'సెట్టింగ్‌లు',
     'nav.admin': 'అడ్మిన్',
@@ -85,8 +85,8 @@ const translations: Record<LanguageCode, Record<string, string>> = {
     'toast.themeUpdated': 'థీమ్ నవీకరించబడింది'
   },
   kn: {
-    'app.title': 'ಮೆಲೋಡಿ ಮ್ಯೂಸ್',
-    'app.description': 'ನಿಮ್ಮ ವೈಯಕ್ತಿಕ ಹಾಡುಗಳ ಸಂಗ್ರಹ',
+    'app.title': 'ಗಾಸ್ಪೆಲ್ ಹಾಡುಗಳ ಸಂಗ್ರಹ',
+    'app.description': 'ಬಹುಭಾಷಾ ಕ್ರೈಸ್ತವ ಭಜನೆಗಳು, ಕೀರ್ತನೆಗಳು ಮತ್ತು ಆರಾಧನೆ ಹಾಡುಗಳು',
     'nav.songs': 'ಹಾಡುಗಳು',
     'nav.settings': 'ಸೆಟ್ಟಿಂಗ್‌ಗಳು',
     'nav.admin': 'ಅಡ್ಮಿನ್',

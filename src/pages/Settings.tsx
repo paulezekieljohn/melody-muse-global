@@ -26,7 +26,7 @@ const Settings = () => {
   const handleLanguageChange = (languageCode: LanguageCode) => {
     setAppLanguage(languageCode);
     toast({
-      title: "Language Updated",
+      title: getTranslation('toast.languageUpdated'),
       description: `App language changed to ${languages.find(l => l.code === languageCode)?.name}`,
     });
   };
@@ -35,7 +35,7 @@ const Settings = () => {
     const newTheme = theme === 'dark' ? 'light' : 'dark';
     setTheme(newTheme);
     toast({
-      title: "Theme Updated",
+      title: getTranslation('toast.themeUpdated'),
       description: `Switched to ${newTheme} mode`,
     });
   };
@@ -52,13 +52,13 @@ const Settings = () => {
           <Link to="/">
             <Button variant="ghost" size="sm">
               <ArrowLeft className="h-4 w-4 mr-2" />
-              Back to Songs
+              {getTranslation('button.back')}
             </Button>
           </Link>
           <div className="flex items-center gap-3">
             <SettingsIcon className="h-8 w-8 text-primary" />
             <h1 className="text-3xl font-bold bg-gradient-to-r from-primary to-purple-600 bg-clip-text text-transparent">
-              Settings
+              {getTranslation('nav.settings')}
             </h1>
           </div>
         </div>
@@ -69,14 +69,14 @@ const Settings = () => {
             <CardHeader>
               <CardTitle className="flex items-center gap-2 text-card-foreground">
                 <Palette className="h-5 w-5" />
-                Appearance
+                {getTranslation('settings.appearance')}
               </CardTitle>
             </CardHeader>
             <CardContent className="space-y-4">
               <div className="flex items-center justify-between">
                 <div className="space-y-1">
                   <Label htmlFor="dark-mode" className="text-base font-medium text-card-foreground">
-                    Dark Mode
+                    {getTranslation('settings.darkMode')}
                   </Label>
                   <p className="text-sm text-muted-foreground">
                     Switch between light and dark themes
@@ -100,7 +100,7 @@ const Settings = () => {
             <CardHeader>
               <CardTitle className="flex items-center gap-2 text-card-foreground">
                 <Globe className="h-5 w-5" />
-                App Language
+                {getTranslation('settings.appLanguage')}
               </CardTitle>
             </CardHeader>
             <CardContent className="space-y-4">
@@ -144,9 +144,9 @@ const Settings = () => {
           <Card className="border-primary/30 bg-gradient-to-br from-primary/10 to-accent/10">
             <CardContent className="p-6">
               <div className="text-center space-y-2">
-                <h3 className="text-lg font-semibold text-primary">Melody Muse</h3>
+                <h3 className="text-lg font-semibold text-primary">{getTranslation('app.title')}</h3>
                 <p className="text-sm text-muted-foreground">
-                  Your personal songbook collection for Indian music
+                  {getTranslation('app.description')}
                 </p>
                 <div className="flex justify-center gap-2 mt-4">
                   <Badge variant="outline" className="text-xs">
