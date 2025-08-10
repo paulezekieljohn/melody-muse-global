@@ -5,12 +5,12 @@
 @layer base {
   :root {
     /* Beautiful Purple Theme Colors - Matching Upload */
-    --background: 255 240 255%;
-    --foreground: 285 50% 25%;
-    --card: 255 255 100%;
-    --card-foreground: 285 50% 25%;
-    --popover: 255 255 100%;
-    --popover-foreground: 285 50% 25%;
+    --background: 285 60% 96%;
+    --foreground: 285 50% 20%;
+    --card: 285 80% 98%;
+    --card-foreground: 285 50% 20%;
+    --popover: 285 80% 98%;
+    --popover-foreground: 285 50% 20%;
     
     /* Vibrant Purple Primary - From Image */
     --primary: 285 70% 70%;
@@ -123,7 +123,7 @@ All colors MUST be HSL.
   }
 
   body {
-    @apply bg-gradient-to-br from-background to-background/80 text-foreground min-h-screen;
+    @apply bg-gradient-to-br from-background via-background to-muted/30 text-foreground min-h-screen;
     background: var(--gradient-background);
   }
 }

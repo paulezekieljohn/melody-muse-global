@@ -40,7 +40,6 @@ export const CategoryTabs = ({ onLanguageSelect }: CategoryTabsProps) => {
             <LanguageCards 
               category={category.id}
               onLanguageSelect={(language) => onLanguageSelect(category.id, language)}
-              songs={gospelSongs}
             />
           </TabsContent>
         ))}
